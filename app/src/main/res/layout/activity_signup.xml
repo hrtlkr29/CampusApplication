@@ -29,6 +29,14 @@
         android:textSize="24sp" />
 
     <EditText
+        android:id="@+id/txtRePass"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:hint="Retype Password"
+        android:textSize="24sp" />
+
+    <EditText
         android:layout_marginTop="20dp"
         android:id="@+id/txtFName"
         android:layout_width="match_parent"
