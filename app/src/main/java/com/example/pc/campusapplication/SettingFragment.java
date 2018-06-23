@@ -38,7 +38,6 @@ public class SettingFragment extends android.support.v4.app.Fragment {
         startActivity(intent);
     }
     class ButtonHandler implements View.OnClickListener{
-
         @Override
         public void onClick(View view) {
             if(view.getId() == R.id.btnLogout){

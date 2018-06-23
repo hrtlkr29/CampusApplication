@@ -1,46 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
     android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="4">
+        android:orientation="horizontal">
 
         <ImageButton
-            android:id="@+id/btnAcademic"
-            android:layout_margin="10dp"
-        android:layout_width="wrap_content"
-        android:layout_weight="1"
-        android:layout_height="50dp"
-        android:background="@drawable/ico_academic_red"/>
-        <ImageButton
-            android:id="@+id/btnEvent"
+            android:id="@+id/btnSchedule"
             android:layout_margin="10dp"
             android:layout_width="wrap_content"
             android:layout_weight="1"
             android:layout_height="50dp"
-            android:background="@drawable/ico_event_black"/>
+            android:background="@drawable/ico_class_schedule_red"/>
         <ImageButton
-            android:id="@+id/btnSport"
+            android:id="@+id/btnGrade"
             android:layout_margin="10dp"
             android:layout_width="wrap_content"
             android:layout_weight="1"
             android:layout_height="50dp"
-            android:background="@drawable/ico_sport_black"/>
+            android:background="@drawable/ico_grade_black"/>
         <ImageButton
-            android:id="@+id/btnSetting"
+            android:id="@+id/btnAttendance"
             android:layout_margin="10dp"
             android:layout_width="wrap_content"
             android:layout_weight="1"
             android:layout_height="50dp"
-            android:background="@drawable/ico_setting_black"/>
+            android:background="@drawable/ico_attendance_black"/>
+        <ImageButton
+            android:id="@+id/btnCalc"
+            android:layout_margin="10dp"
+            android:layout_width="wrap_content"
+            android:layout_weight="1"
+            android:layout_height="50dp"
+            android:background="@drawable/ico_calc_black"/>
     </LinearLayout>
 
     <View android:layout_width="match_parent"

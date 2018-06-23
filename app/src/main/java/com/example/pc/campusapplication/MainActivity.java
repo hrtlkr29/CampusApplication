@@ -1,22 +1,16 @@
 package com.example.pc.campusapplication;
 
-import android.content.Intent;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.ProgressBar;
 
 import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, ViewPager.OnPageChangeListener {
     ViewPager viewPager;
-    PagerAdapter pagerAdapter;
+    MenuPagerAdapter menuPagerAdapter;
     ImageButton btnAcademic, btnEvent, btnSport, btnSetting;
 
     @Override
@@ -34,8 +28,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnSetting.setOnClickListener(this);
 
         viewPager = (ViewPager) findViewById(R.id.viewPager);
-        pagerAdapter = new PagerAdapter(getSupportFragmentManager());
-        viewPager.setAdapter(pagerAdapter);
+        menuPagerAdapter = new MenuPagerAdapter(getSupportFragmentManager());
+        viewPager.setAdapter(menuPagerAdapter);
 
         viewPager.addOnPageChangeListener(this);
         onPageSelected(0);

@@ -1,5 +1,6 @@
 package com.example.pc.campusapplication;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -33,6 +34,7 @@ public class MessageActivity extends AppCompatActivity implements View.OnClickLi
     MessageAdapter adapter;
     DatabaseReference messRef;
     DatabaseReference user;
+    ProgressDialog progressDialog;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,15 +47,23 @@ public class MessageActivity extends AppCompatActivity implements View.OnClickLi
         lvMessages = findViewById(R.id.lstMess);
         btnSend = findViewById(R.id.btnSend);
         btnSend.setOnClickListener(this);
+
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Loading...");
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progressDialog.setIndeterminate(true);
+
         loadMessages();
     }
 
     private void loadMessages(){
+        progressDialog.show();
         messages = new ArrayList<>();
         messRef = db.child("events").child("messages");
         ValueEventListener listener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
                 messages.clear();
                 for(DataSnapshot child : dataSnapshot.getChildren()){
                     Message m = child.getValue(Message.class);
@@ -61,6 +71,7 @@ public class MessageActivity extends AppCompatActivity implements View.OnClickLi
                 }
                 adapter = new MessageAdapter(MessageActivity.this, R.layout.message_row,messages);
                 lvMessages.setAdapter(adapter);
+                progressDialog.hide();
             }
 
             @Override
