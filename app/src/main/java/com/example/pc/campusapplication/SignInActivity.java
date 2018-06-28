@@ -1,5 +1,6 @@
 package com.example.pc.campusapplication;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -20,6 +21,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
     EditText txtEmail, txtPass;
     Button btnSignup, btnSignin;
     FirebaseAuth auth;
+    ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -33,6 +35,11 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         btnSignup = findViewById(R.id.btnRegister);
         btnSignin.setOnClickListener(this);
         btnSignup.setOnClickListener(this);
+
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Loading...");
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progressDialog.setIndeterminate(true);
     }
 
 
@@ -49,6 +56,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
     public void onClick(View view) {
         int id = view.getId();
         if(id == R.id.btnLogin){
+            progressDialog.show();
             performLogin();
         }
         else if(id == R.id.btnRegister){
@@ -66,6 +74,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
                     Toast.makeText(SignInActivity.this, "Login successfully", Toast.LENGTH_SHORT).show();
+                    progressDialog.hide();
                     goToMainScreen();
                 }
                 else{

@@ -1,5 +1,6 @@
 package com.example.pc.campusapplication;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -23,6 +24,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     App app;
     FirebaseAuth auth;
     DatabaseReference db;
+    ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -40,11 +42,16 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         btnRegister = findViewById(R.id.btnRegister);
         btnRegister.setOnClickListener(this);
 
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Loading...");
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progressDialog.setIndeterminate(true);
     }
 
     @Override
     public void onClick(View view) {
         if (view.getId() == R.id.btnRegister) {
+            progressDialog.show();
             performRegister();
         }
     }
@@ -64,6 +71,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                         String uid = auth.getCurrentUser().getUid();
                         Toast.makeText(SignUpActivity.this, "Register successfully", Toast.LENGTH_SHORT).show();
                         writeUserData(uid, email);
+                        progressDialog.hide();
                     } else
                         Toast.makeText(SignUpActivity.this, "Register failed", Toast.LENGTH_SHORT).show();
                 }
