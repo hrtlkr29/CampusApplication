@@ -28,6 +28,7 @@
         <activity android:name=".BusinessActivity"></activity>
         <activity android:name=".MessageActivity"></activity>
         <activity android:name=".ResultActivity"></activity>
+        <activity android:name=".SportActivity"></activity>
         <service
             android:name=".InstanceIdService">
             <intent-filter>

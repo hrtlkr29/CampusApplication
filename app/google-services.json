@@ -23,8 +23,12 @@
           }
         },
         {
-          "client_id": "602986886978-st57jr21hoknp830qf84uipiu74iufpj.apps.googleusercontent.com",
-          "client_type": 3
+          "client_id": "602986886978-a47t9q6ngbe4fd60rf1ton3u1bonbtt5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.pc.campusapplication",
+            "certificate_hash": "2c57863986f11deff907e968e1160b1dea53fb1a"
+          }
         },
         {
           "client_id": "602986886978-st57jr21hoknp830qf84uipiu74iufpj.apps.googleusercontent.com",

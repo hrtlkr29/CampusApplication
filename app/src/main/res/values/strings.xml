@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">CampusApplication</string>
+    <string name="sport">Sport</string>
+    <string name="chess">Chess</string>
+    <string name="tabletennis">Table Tennis</string>
+    <string name="Volleyball">VolleyBall</string>
+    <string name="Hockey">Hockey</string>
+    <string name="Squash">Squash</string>
 </resources>
