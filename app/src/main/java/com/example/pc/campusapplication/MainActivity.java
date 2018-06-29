@@ -1,5 +1,6 @@
 package com.example.pc.campusapplication;
 
+import android.app.ProgressDialog;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,7 +13,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     ViewPager viewPager;
     MenuPagerAdapter menuPagerAdapter;
     ImageButton btnAcademic, btnEvent, btnSport, btnSetting;
-
+    ProgressDialog progressDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,7 +31,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         viewPager = (ViewPager) findViewById(R.id.viewPager);
         menuPagerAdapter = new MenuPagerAdapter(getSupportFragmentManager());
         viewPager.setAdapter(menuPagerAdapter);
-
         viewPager.addOnPageChangeListener(this);
         onPageSelected(0);
     }

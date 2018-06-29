@@ -38,6 +38,7 @@ public class SportViewHolder extends RecyclerView.ViewHolder implements View.OnC
         //set Data
         mTitleView.setText(title);
         Picasso.get().load(image).into(mImagebuttonView);
+
         mdescriptionView.setText(description);
 
     }

@@ -159,7 +159,7 @@ public class AddEventActivity extends AppCompatActivity {
         String eventDate = tvCalendar.getText().toString().trim();
         String eventTime = tvTime.getText().toString().trim();
         String token = app.loadPref(App.FCM_TOKEN);
-        int eventThumbnail = ivPreview.
-        Event event = new Event(eventName,eventDate,"",eventTime,)
+//        int eventThumbnail = ivPreview.
+//        Event event = new Event(eventName,eventDate,"",eventTime,)
     }
 }
