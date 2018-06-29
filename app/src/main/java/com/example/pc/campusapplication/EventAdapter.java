@@ -10,6 +10,9 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,7 +54,9 @@ public class EventAdapter extends ArrayAdapter<Event> {
         viewHolder.tvEventName.setText(event.getName());
         viewHolder.tvEventTime.setText(event.getTime());
         viewHolder.tvEventPlace.setText(event.getAddress());
-        viewHolder.ivEventImage.setImageResource(event.getThumbnail());
+        GlideApp.with(this.getContext())
+                .load(event.getThumbnail())
+                .into(viewHolder.ivEventImage);
         return convertView;
     }
 

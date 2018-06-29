@@ -6,12 +6,15 @@ import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -19,43 +22,55 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
+import java.util.UUID;
 
-public class AddEventActivity extends AppCompatActivity {
+public class AddEventActivity extends AppCompatActivity implements View.OnClickListener {
     TextView tvCalendar;
     TextView tvTime;
     TextView tvImage;
-    EditText edtName;
+    EditText edtName, edtAddress;
+    Button btnAddEvent;
     Calendar calendar = Calendar.getInstance();
     int currentHour;
     int currentMinute;
     String amPm;
     App app;
     ImageView ivPreview;
+    Bitmap selectedImageBitmap;
     public static final int TAKE_PICTURE_REQUEST_CODE = 1001;
     public final static int PICK_PHOTO_REQUEST_CODE = 1002;
     public String photoFileName = "photo.jpg";
     File photoFile;
     DatabaseReference db;
-    StorageReference storageRef;
+    FirebaseStorage storage = FirebaseStorage.getInstance();
+    StorageReference storageRef = storage.getReference();
     ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_event);
-
+        db = FirebaseDatabase.getInstance().getReference();
         tvCalendar = findViewById(R.id.txtNewEventDate);
         tvTime = findViewById(R.id.txtNewEventTime);
         edtName = findViewById(R.id.txtNewEventName);
+        btnAddEvent = findViewById(R.id.btnAddEvent);
         tvImage = findViewById(R.id.txtNewEventImage);
+        edtAddress = findViewById(R.id.txtNewEventAddress);
         final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int monthOfYear, int dayOfMonth) {
@@ -98,6 +113,7 @@ public class AddEventActivity extends AppCompatActivity {
                 openGallery();
             }
         });
+        btnAddEvent.setOnClickListener(this);
     }
 
     private void updateLabel(){
@@ -131,15 +147,15 @@ public class AddEventActivity extends AppCompatActivity {
         } else if (requestCode == PICK_PHOTO_REQUEST_CODE) {
             Uri photoUri = data.getData();
             // Do something with the photo based on Uri
-            Bitmap selectedImage = null;
+            selectedImageBitmap = null;
             try {
-                selectedImage = MediaStore.Images.Media.getBitmap(this.getContentResolver(), photoUri);
+                selectedImageBitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), photoUri);
             } catch (IOException e) {
                 e.printStackTrace();
             }
             // Load the selected image into a preview
             ivPreview = (ImageView) findViewById(R.id.ivNewEventImage);
-            ivPreview.setImageBitmap(selectedImage);
+            ivPreview.setImageBitmap(selectedImageBitmap);
         }
     }
 
@@ -154,12 +170,53 @@ public class AddEventActivity extends AppCompatActivity {
 //        // go to main activity
 //    }
 
-    private void addEventToDB(String uid){
+    private void addEventToDB(){
+        String ueid = UUID.randomUUID().toString().replaceAll("-", "");
         String eventName = edtName.getText().toString().trim();
         String eventDate = tvCalendar.getText().toString().trim();
         String eventTime = tvTime.getText().toString().trim();
-        String token = app.loadPref(App.FCM_TOKEN);
-//        int eventThumbnail = ivPreview.
-//        Event event = new Event(eventName,eventDate,"",eventTime,)
+        String dbReference = "images/" + eventName + ".jpg";
+        String eventThumbnail = dbReference.replace(" ", "");
+        String eventAddress = edtAddress.getText().toString().trim();
+        Event event = new Event(ueid,eventName,eventDate,eventAddress,"",eventTime,eventThumbnail);
+        db.child("events").child(ueid).setValue(event);
+//        String name, String date, String address, String description, String time, String thumbnail
+    }
+
+    private void saveImageToDB(){
+        String eventName = edtName.getText().toString().trim();
+        eventName = eventName.replace(" ","");
+        StorageReference mountainImagesRef = storageRef.child("images/" + eventName + ".jpg");
+        // Get the data from an ImageView as bytes
+        ivPreview.setDrawingCacheEnabled(true);
+        ivPreview.buildDrawingCache();
+        Bitmap bitmap = ((BitmapDrawable) ivPreview.getDrawable()).getBitmap();
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        byte[] data = baos.toByteArray();
+
+        UploadTask uploadTask = mountainImagesRef.putBytes(data);
+        uploadTask.addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                // Handle unsuccessful uploads
+            }
+        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                // taskSnapshot.getMetadata() contains file metadata such as size, content-type, etc.
+                // ...
+            }
+        });
+    }
+
+    @Override
+    public void onClick(View view) {
+        int id = view.getId();
+        if (id == R.id.btnAddEvent){
+            addEventToDB();
+            saveImageToDB();
+            finish();
+        }
     }
 }

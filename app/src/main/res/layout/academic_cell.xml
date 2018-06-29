@@ -4,12 +4,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ImageButton
+    <ImageView
         android:id="@+id/academic_cell_imgView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:focusable="false">
 
-    </ImageButton>
+    </ImageView>
 
 </LinearLayout>

@@ -1,29 +1,40 @@
 package com.example.pc.campusapplication;
 
 public class Event {
+    private String id;
     private String name;
     private String date;
     private String address;
     private String description;
     private String time;
-    private int thumbnail;
+    private String thumbnail;
 
     public Event() {
+        this.setId("");
         this.setName("");
         this.setDate("");
         this.setAddress("");
         this.setDescription("");
-        this.setThumbnail(0);
+        this.setThumbnail("");
         this.setTime("");
     }
 
-    public Event(String name, String date, String address, String description, String time, int thumbnail) {
+    public Event(String id, String name, String date, String address, String description, String time, String thumbnail) {
+        this.id = id;
         this.name = name;
         this.date = date;
         this.address = address;
         this.description = description;
         this.time = time;
         this.thumbnail = thumbnail;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -66,11 +77,11 @@ public class Event {
         this.time = time;
     }
 
-    public int getThumbnail() {
+    public String getThumbnail() {
         return thumbnail;
     }
 
-    public void setThumbnail(int thumbnail) {
+    public void setThumbnail(String thumbnail) {
         this.thumbnail = thumbnail;
     }
 }

@@ -7,13 +7,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.TextView;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.List;
 
 public class AcademicCourseAdapter extends ArrayAdapter<AcademicCourse> {
     private Context context;
@@ -39,18 +35,18 @@ public class AcademicCourseAdapter extends ArrayAdapter<AcademicCourse> {
             LayoutInflater inflater = LayoutInflater.from(context);
             convertView = inflater.inflate(resource, null);
             holder = new CourseHolder();
-            holder.imageButton = convertView.findViewById(R.id.academic_cell_imgView);
+            holder.imageView = convertView.findViewById(R.id.academic_cell_imgView);
             convertView.setTag(holder);
         }
         else{
             holder = (CourseHolder) convertView.getTag();
         }
         AcademicCourse c = courses.get(position);
-        holder.imageButton.setImageResource(c.getImageView());
+        holder.imageView.setImageResource(c.getImageView());
         return convertView;
     }
 
     class CourseHolder{
-        private ImageButton imageButton;
+        private ImageView imageView;
     }
 }

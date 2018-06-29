@@ -20,8 +20,16 @@
         android:hint="Event name"
         android:textSize="24sp" />
 
+    <EditText
+        android:layout_marginTop="10dp"
+        android:id="@+id/txtNewEventAddress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Address"
+        android:textSize="24sp" />
+
     <TextView
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:id="@+id/txtNewEventDate"
         android:focusable="false"
         android:clickable="true"
@@ -49,12 +57,12 @@
     <ImageView
         android:id="@+id/ivNewEventImage"
         android:layout_width="match_parent"
-        android:layout_height="200dp" />
+        android:layout_height="135dp" />
 
     <Button
         android:layout_gravity="center"
         android:gravity="center"
-        android:id="@+id/btnRegister"
+        android:id="@+id/btnAddEvent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Add"
