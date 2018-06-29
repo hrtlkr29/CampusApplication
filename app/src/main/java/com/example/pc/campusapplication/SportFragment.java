@@ -23,19 +23,12 @@ public class SportFragment extends Fragment{
     DatabaseReference databaseReference;
     ImageButton rImage;
     RecyclerView.LayoutManager mLayoutManager;
-    ProgressDialog progressDialog;
-//    ProgressDialog progress;
-
 
     //set View layout
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_sport,container,false);
-        progressDialog = new ProgressDialog(this.getContext());
-        progressDialog.setMessage("Loading...");
-        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        progressDialog.setIndeterminate(true);
         return rootView;
     }
 
@@ -76,7 +69,7 @@ public class SportFragment extends Fragment{
 
                     @Override
                     protected void populateViewHolder(SportViewHolder viewHolder, SportModel model, int position) {
-                        viewHolder.setDetail(getActivity().getApplicationContext(), model.getTitle(), model.getImage(), model.getdescription());
+                        viewHolder.setDetail(getActivity().getApplicationContext(), model.getTitle(), model.getImage(), model.getDescription());
                     }
                 };
         mRecycleView.setAdapter(firebaseRecyclerAdapter);
