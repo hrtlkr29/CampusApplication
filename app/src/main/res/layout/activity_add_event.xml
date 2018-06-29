@@ -38,7 +38,18 @@
         android:hint="Time"
         android:textSize="24sp" />
 
+    <TextView
+        android:id="@+id/txtNewEventImage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:hint="Event thumbnail"
+        android:textSize="24sp" />
 
+    <ImageView
+        android:id="@+id/ivNewEventImage"
+        android:layout_width="match_parent"
+        android:layout_height="200dp" />
 
     <Button
         android:layout_gravity="center"
