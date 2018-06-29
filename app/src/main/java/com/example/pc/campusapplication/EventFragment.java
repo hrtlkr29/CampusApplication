@@ -9,9 +9,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ListView;
+
+import java.util.ArrayList;
 
 public class EventFragment extends Fragment  {
-    Button btnMessage;
+    ListView listView;
+    ArrayList<Event> events;
+    EventAdapter adapter;
+    EventCallback eventCallback;
+    Button btnAddEvent;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -22,22 +29,27 @@ public class EventFragment extends Fragment  {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_event,null);
-        btnMessage = rootView.findViewById(R.id.btnMessage);
-        ButtonHandler btnHandler = new ButtonHandler();
-        btnMessage.setOnClickListener(btnHandler);
+        btnAddEvent = rootView.findViewById(R.id.btnAddEvent);
+        ButtonHandler handler = new ButtonHandler();
+        btnAddEvent.setOnClickListener(handler);
         return rootView;
     }
 
-    private void goToMessage(){
-        Intent intent = new Intent(this.getActivity(),MessageActivity.class);
-        startActivity(intent);
-    }
+//    private void goToMessage(){
+//        Intent intent = new Intent(this.getActivity(),MessageActivity.class);
+//        startActivity(intent);
+//    }
     class ButtonHandler implements View.OnClickListener{
         @Override
         public void onClick(View view) {
-            if(view.getId() == R.id.btnMessage){
-                goToMessage();
+            if(view.getId() == R.id.btnAddEvent){
+                goToAddEvent();
             }
         }
     }
+    private void goToAddEvent(){
+        Intent intent = new Intent(this.getActivity(),AddEventActivity.class);
+        startActivity(intent);
+    }
+
 }

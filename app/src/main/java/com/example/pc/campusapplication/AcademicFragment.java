@@ -8,13 +8,19 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.GridView;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
-public class AcademicFragment extends Fragment {
+import java.util.ArrayList;
 
-    ImageButton btnCS, btnBA;
-
+public class AcademicFragment extends Fragment implements AdapterView.OnItemClickListener {
+    GridView gridCourse;
+    ArrayList<AcademicCourse> courses;
+    AcademicCourseAdapter adapter;
+    CourseListCallback courseListCallback;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,26 +30,26 @@ public class AcademicFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_academic,null);
-        btnBA = rootView.findViewById(R.id.btnBA);
-        btnCS = rootView.findViewById(R.id.btnCS);
-        ButtonHandler buttonHandler = new ButtonHandler();
-        btnBA.setOnClickListener(buttonHandler);
-        btnCS.setOnClickListener(buttonHandler);
+        courses = new ArrayList<>();
+        gridCourse = rootView.findViewById(R.id.gridAcademic);
+        AcademicCourse business = new AcademicCourse(R.drawable.img_ba);
+        AcademicCourse computerScience = new AcademicCourse(R.drawable.img_cs);
+        courses.add(business);
+        courses.add(computerScience);
         return rootView;
     }
 
-    private class ButtonHandler implements View.OnClickListener{
+    public void setCallback(CourseListCallback callback){
+        this.courseListCallback = callback;
+    }
 
-        @Override
-        public void onClick(View view) {
-            int id = view.getId();
-            if(id == R.id.btnCS){
-                goToCSScreen();
-            }
-            else if(id == R.id.btnBA){
-                goToBAScreen();
-            }
-        }
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        adapter = new AcademicCourseAdapter(getActivity(),R.layout.academic_cell,this.courses);
+        gridCourse.setAdapter(adapter);
+        gridCourse.setOnItemClickListener(this);
+
     }
 
     private void goToBAScreen(){
@@ -54,5 +60,15 @@ public class AcademicFragment extends Fragment {
     private void goToCSScreen(){
         Intent intent = new Intent(this.getActivity(),ComputerScienceActivity.class);
         startActivity(intent);
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+        if (i == 0 ){
+            goToBAScreen();
+        }
+        if(i == 1){
+            goToCSScreen();
+        }
     }
 }
