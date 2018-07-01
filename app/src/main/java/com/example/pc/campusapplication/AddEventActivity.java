@@ -13,6 +13,7 @@ import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -22,11 +23,15 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.Continuation;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageMetadata;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
@@ -58,7 +63,7 @@ public class AddEventActivity extends AppCompatActivity implements View.OnClickL
     DatabaseReference db;
     FirebaseStorage storage = FirebaseStorage.getInstance();
     StorageReference storageRef = storage.getReference();
-    ProgressDialog progressDialog;
+    String ueid = UUID.randomUUID().toString().replaceAll("-", "");
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -171,14 +176,14 @@ public class AddEventActivity extends AppCompatActivity implements View.OnClickL
 //    }
 
     private void addEventToDB(){
-        String ueid = UUID.randomUUID().toString().replaceAll("-", "");
+
         String eventName = edtName.getText().toString().trim();
         String eventDate = tvCalendar.getText().toString().trim();
         String eventTime = tvTime.getText().toString().trim();
         String dbReference = "images/" + eventName + ".jpg";
         String eventThumbnail = dbReference.replace(" ", "");
         String eventAddress = edtAddress.getText().toString().trim();
-        Event event = new Event(ueid,eventName,eventDate,eventAddress,"",eventTime,eventThumbnail);
+        Event event = new Event(ueid,eventName,eventDate,eventAddress,"",eventTime,eventThumbnail,"");
         db.child("events").child(ueid).setValue(event);
 //        String name, String date, String address, String description, String time, String thumbnail
     }
@@ -186,7 +191,7 @@ public class AddEventActivity extends AppCompatActivity implements View.OnClickL
     private void saveImageToDB(){
         String eventName = edtName.getText().toString().trim();
         eventName = eventName.replace(" ","");
-        StorageReference mountainImagesRef = storageRef.child("images/" + eventName + ".jpg");
+        final StorageReference imageReference = storageRef.child("images/"+ueid);
         // Get the data from an ImageView as bytes
         ivPreview.setDrawingCacheEnabled(true);
         ivPreview.buildDrawingCache();
@@ -195,7 +200,7 @@ public class AddEventActivity extends AppCompatActivity implements View.OnClickL
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
         byte[] data = baos.toByteArray();
 
-        UploadTask uploadTask = mountainImagesRef.putBytes(data);
+        UploadTask uploadTask = imageReference.putBytes(data);
         uploadTask.addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception exception) {
@@ -206,8 +211,50 @@ public class AddEventActivity extends AppCompatActivity implements View.OnClickL
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                 // taskSnapshot.getMetadata() contains file metadata such as size, content-type, etc.
                 // ...
+                StorageMetadata metadata = taskSnapshot.getMetadata();
+                StorageReference imgReference = metadata.getReference();
+                imgReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(Uri uri) {
+                        // Got the download URL for 'users/me/profile.png'
+                        Log.d("Image uid",uri.toString());
+                        db.child("events").child(ueid).child("imageUri").setValue(uri.toString());
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception exception) {
+                        // Handle any errors
+                    }
+                });
             }
         });
+
+
+
+//        Uri file = Uri.fromFile(new File("images/" + eventName + ".jpg"));
+//        final StorageReference ref = storageRef.child("images/" + eventName + ".jpg");
+//        uploadTask = ref.putFile(file);
+//        Task<Uri> urlTask = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+//            @Override
+//            public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+//                if (!task.isSuccessful()) {
+//                    throw task.getException();
+//                }
+//                // Continue with the task to get the download URL
+//                return imageReference.getDownloadUrl();
+//            }
+//        }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+//            @Override
+//            public void onComplete(@NonNull Task<Uri> task) {
+//                if (task.isSuccessful()) {
+//                    Uri imageURL = task.getResult();
+//                    db.child("events").child(ueid).child("imageUri").setValue(imageURL);
+//                } else {
+//                    // Handle failures
+//                    // ...
+//                }
+//            }
+//        });
     }
 
     @Override

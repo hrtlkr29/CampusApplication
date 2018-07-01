@@ -63,6 +63,7 @@ public class EventFragment extends Fragment implements AdapterView.OnItemClickLi
         loadEvents();
         setCallback((EventListCallback)getActivity());
         lvEvents.setOnItemClickListener(this);
+
     }
 
     @Override

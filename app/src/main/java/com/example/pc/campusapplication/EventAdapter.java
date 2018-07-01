@@ -1,5 +1,6 @@
 package com.example.pc.campusapplication;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -60,8 +61,8 @@ public class EventAdapter extends ArrayAdapter<Event> {
         viewHolder.tvEventName.setText(event.getName());
         viewHolder.tvEventTime.setText(event.getTime());
         viewHolder.tvEventPlace.setText(event.getAddress());
-        GlideApp.with(this.getContext())
-                .load(event.getThumbnail())
+        Glide.with(this.getContext())
+                .load(event.getImageUri())
                 .into(viewHolder.ivEventImage);
         return convertView;
     }
