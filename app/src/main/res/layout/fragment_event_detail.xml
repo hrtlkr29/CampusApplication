@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/detailThumbnail"
+        android:layout_width="match_parent"
+        android:layout_height="150dp" />
+
+    <TextView
+        android:textColor="#8ece0b"
+        android:layout_margin="30dp"
+        android:textSize="20dp"
+        android:id="@+id/tvEventDetailName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:textColor="#8ece0b"
+        android:layout_margin="30dp"
+        android:textSize="20dp"
+        android:id="@+id/tvEventDetailTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:textColor="#8ece0b"
+        android:layout_margin="30dp"
+        android:textSize="20dp"
+        android:id="@+id/tvEventDetailPlace"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:textColor="#8ece0b"
+        android:layout_margin="30dp"
+        android:textSize="20dp"
+        android:id="@+id/tvEventDetailDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:textColor="#8ece0b"
+        android:layout_margin="30dp"
+        android:textSize="20dp"
+        android:id="@+id/tvEventDetailDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+</LinearLayout>

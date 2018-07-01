@@ -1,21 +1,28 @@
 package com.example.pc.campusapplication;
 
 import android.app.ProgressDialog;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener, ViewPager.OnPageChangeListener {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, ViewPager.OnPageChangeListener, EventListCallback {
     ViewPager viewPager;
     MenuPagerAdapter menuPagerAdapter;
     ImageButton btnAcademic, btnEvent, btnSport, btnSetting;
+    EventFragment eventFragment;
+    EventDetailFragment eventDetailFragment;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        eventFragment = new EventFragment();
+        eventDetailFragment = new EventDetailFragment();
         setContentView(R.layout.activity_main);
         btnAcademic = findViewById(R.id.btnAcademic);
         btnEvent = findViewById(R.id.btnEvent);
@@ -68,6 +75,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             btnSetting.setBackground(getDrawable(R.drawable.ico_setting_black));
         }
         else if(position == 1){
+            showFragment(eventFragment,eventDetailFragment);
             btnAcademic.setBackground(getDrawable(R.drawable.ico_academic_black));
             btnEvent.setBackground(getDrawable(R.drawable.ico_event_red));
             btnSport.setBackground(getDrawable(R.drawable.ico_sport_black));
@@ -87,8 +95,30 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    public void showFragment(Fragment fragmentToShow, Fragment fragmentToHide) {
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+
+        if (fragmentToShow.isAdded()) {
+            transaction.show(fragmentToShow);
+        } else {
+            transaction.add(R.id.viewPager, fragmentToShow);
+        }
+
+        if (fragmentToHide.isAdded()) {
+            transaction.hide(fragmentToHide);
+
+        }
+        transaction.commit();
+    }
+
     @Override
     public void onPageScrollStateChanged(int state) {
 
+    }
+
+    @Override
+    public void onListEventClicked(Event selectedEvent) {
+        showFragment(eventDetailFragment,eventFragment);
+        eventDetailFragment.setEvent(selectedEvent);
     }
 }

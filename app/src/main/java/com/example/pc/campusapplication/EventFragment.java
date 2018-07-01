@@ -1,6 +1,8 @@
 package com.example.pc.campusapplication;
 
 import android.app.ProgressDialog;
+import android.arch.lifecycle.ViewModelProvider;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -9,8 +11,11 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodSession;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -20,18 +25,20 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class EventFragment extends Fragment  {
+public class EventFragment extends Fragment implements AdapterView.OnItemClickListener {
     ListView lvEvents;
     ArrayList<Event> events;
     EventAdapter adapter;
-    EventCallback eventCallback;
     Button btnAddEvent;
     ProgressDialog progressDialog;
     DatabaseReference db;
     DatabaseReference eventRef;
+    SharedEventModel model;
+    EventListCallback eventListCallback;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        model = ViewModelProviders.of(getActivity()).get(SharedEventModel.class);
     }
 
     @Nullable
@@ -41,6 +48,12 @@ public class EventFragment extends Fragment  {
         btnAddEvent = rootView.findViewById(R.id.btnAddEvent);
         db = FirebaseDatabase.getInstance().getReference();
         lvEvents = rootView.findViewById(R.id.lvEvent);
+        return rootView;
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
         progressDialog = new ProgressDialog(this.getContext());
         progressDialog.setMessage("Loading...");
         progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
@@ -48,13 +61,17 @@ public class EventFragment extends Fragment  {
         ButtonHandler handler = new ButtonHandler();
         btnAddEvent.setOnClickListener(handler);
         loadEvents();
-        return rootView;
+        setCallback((EventListCallback)getActivity());
+        lvEvents.setOnItemClickListener(this);
     }
 
-//    private void goToMessage(){
-//        Intent intent = new Intent(this.getActivity(),MessageActivity.class);
-//        startActivity(intent);
-//    }
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+        Toast.makeText(this.getContext(), "item clicked", Toast.LENGTH_SHORT).show();
+        Event event = this.events.get(i);
+        eventListCallback.onListEventClicked(event);
+    }
+
     class ButtonHandler implements View.OnClickListener{
         @Override
         public void onClick(View view) {
@@ -63,6 +80,11 @@ public class EventFragment extends Fragment  {
             }
         }
     }
+
+    public void setCallback(EventListCallback callback){
+        eventListCallback = callback;
+    }
+
     private void goToAddEvent(){
         Intent intent = new Intent(this.getActivity(),AddEventActivity.class);
         startActivity(intent);
