@@ -61,16 +61,23 @@ public class EventFragment extends Fragment implements AdapterView.OnItemClickLi
         ButtonHandler handler = new ButtonHandler();
         btnAddEvent.setOnClickListener(handler);
         loadEvents();
-        setCallback((EventListCallback)getActivity());
+//        setCallback((EventListCallback)getActivity());
         lvEvents.setOnItemClickListener(this);
 
     }
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-        Toast.makeText(this.getContext(), "item clicked", Toast.LENGTH_SHORT).show();
         Event event = this.events.get(i);
-        eventListCallback.onListEventClicked(event);
+        Intent intent = new Intent(this.getActivity(),EventDetailActivity.class);
+        intent.putExtra("eventName",event.getName());
+        intent.putExtra("eventTime",event.getTime());
+        intent.putExtra("eventPlace",event.getAddress());
+        intent.putExtra("eventDate",event.getDate());
+        intent.putExtra("eventDescription",event.getDescription());
+        intent.putExtra("eventImageURL",event.getImageUri());
+        startActivity(intent);
+//        eventListCallback.onListEventClicked(event);
     }
 
     class ButtonHandler implements View.OnClickListener{
@@ -82,9 +89,9 @@ public class EventFragment extends Fragment implements AdapterView.OnItemClickLi
         }
     }
 
-    public void setCallback(EventListCallback callback){
-        eventListCallback = callback;
-    }
+//    public void setCallback(EventListCallback callback){
+//        eventListCallback = callback;
+//    }
 
     private void goToAddEvent(){
         Intent intent = new Intent(this.getActivity(),AddEventActivity.class);

@@ -1,6 +1,7 @@
 package com.example.pc.campusapplication;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
@@ -12,7 +13,7 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener, ViewPager.OnPageChangeListener, EventListCallback {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, ViewPager.OnPageChangeListener {
     ViewPager viewPager;
     MenuPagerAdapter menuPagerAdapter;
     ImageButton btnAcademic, btnEvent, btnSport, btnSetting;
@@ -116,9 +117,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
-    @Override
-    public void onListEventClicked(Event selectedEvent) {
-        showFragment(eventDetailFragment,eventFragment);
-        eventDetailFragment.setEvent(selectedEvent);
-    }
+//    @Override
+//    public void onListEventClicked(Event selectedEvent) {
+//        startActivity(intent);
+//        eventDetailFragment.setEvent(selectedEvent);
+//    }
 }
