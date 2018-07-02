@@ -1,8 +1,10 @@
 package com.example.pc.campusapplication;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.AttributeSet;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -23,7 +25,7 @@ public class EventDetailActivity extends AppCompatActivity implements View.OnCli
     String name, date, time, address, description, imageURL, eventId, uid, participants;
     FirebaseAuth auth;
     DatabaseReference db;
-    Boolean isJoined = false;
+//    Boolean isJoined;
     int participantCount;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +40,7 @@ public class EventDetailActivity extends AppCompatActivity implements View.OnCli
         thumbnail = findViewById(R.id.detailThumbnail);
         btnJoinEvent = findViewById(R.id.btnJoinEvent);
         btnMessage = findViewById(R.id.btnMessage);
-
+//        isJoined = false;
         auth = FirebaseAuth.getInstance();
         uid = auth.getCurrentUser().getUid();
         db = FirebaseDatabase.getInstance().getReference();
@@ -52,6 +54,14 @@ public class EventDetailActivity extends AppCompatActivity implements View.OnCli
         imageURL = intent.getStringExtra("eventImageURL");
         eventId = intent.getStringExtra("eventID");
 
+        btnMessage.setOnClickListener(this);
+        btnJoinEvent.setOnClickListener(this);
+        txtParticipants.setOnClickListener(this);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
         DatabaseReference participantsRef = db.child("events").child(eventId).child("participants");
         participantsRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -59,25 +69,22 @@ public class EventDetailActivity extends AppCompatActivity implements View.OnCli
                 participantCount = 0;
                 for(DataSnapshot child : dataSnapshot.getChildren()){
                     participantCount++;
-                    boolean isJoined = false;
                     txtParticipants.setText(participantCount + " have joined this event");
                     User user = child.getValue(User.class);
+                    boolean isJoined = user.getUid().equals(uid);
+                    if(isJoined == true){
+                        btnJoinEvent.setBackgroundColor(getResources().getColor(R.color.grey));
+                        btnJoinEvent.setEnabled(false);
+                    }
                 }
-                if(isJoined == true){
-                    btnJoinEvent.setBackgroundColor(getResources().getColor(R.color.grey));
-                    btnJoinEvent.setEnabled(false);
-                }
-                else if(isJoined == false){
-                    btnJoinEvent.setBackgroundColor(getResources().getColor(R.color.dark_tint));
-                    btnJoinEvent.setEnabled(true);
-                }
+
+
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 System.out.println("The read failed: " + databaseError.getCode());
             }
         });
-
         txtName.setText(name);
         txtPlace.setText(address);
         txtTime.setText(time);
@@ -91,9 +98,12 @@ public class EventDetailActivity extends AppCompatActivity implements View.OnCli
                 .centerCrop()
                 .into(thumbnail);
 
-        btnMessage.setOnClickListener(this);
-        btnJoinEvent.setOnClickListener(this);
-        txtParticipants.setOnClickListener(this);
+    }
+
+    @Override
+    public View onCreateView(String name, Context context, AttributeSet attrs) {
+        return super.onCreateView(name, context, attrs);
+
     }
 
     @Override
@@ -123,7 +133,6 @@ public class EventDetailActivity extends AppCompatActivity implements View.OnCli
     }
 
     private void joinEvent() {
-        this.isJoined = true;
         DatabaseReference userRef = db.child("users").child(uid);
         final Participant participant = new Participant();
         userRef.addValueEventListener(new ValueEventListener() {
