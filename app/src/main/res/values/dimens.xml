@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="medium_padding">10dp</dimen>
+    <dimen name="radius">7dp</dimen>
+    <dimen name="image_size_width">150dp</dimen>
+    <dimen name="image_size_height">100dp</dimen>
+    <dimen name="width">50dp</dimen>
+    <dimen name="text_size">20dp</dimen>
+    <dimen name="margin_top_facebook_icon">50dp</dimen>
+    <dimen name="margin_top_normal">10dp</dimen>
+    <dimen name="margin_top">25dp</dimen>
+    <dimen name="margin_left_right">40dp</dimen>
+    <dimen name="small_font_size">12sp</dimen>
+    <dimen name="padding_top_icon">2dp</dimen>
+
+</resources>

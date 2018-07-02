@@ -1,9 +1,16 @@
 <resources>
-    <string name="app_name">CampusApplication</string>
     <string name="sport">Sport</string>
     <string name="chess">Chess</string>
     <string name="tabletennis">Table Tennis</string>
     <string name="Volleyball">VolleyBall</string>
     <string name="Hockey">Hockey</string>
     <string name="Squash">Squash</string>
+    <string name="user_name">Email</string>
+    <string name="pass_word">Password</string>
+    <string name="enter_your_name">Enter your name</string>
+    <string name="go">Go</string>
+    <string name="cancel">Cancel</string>
+    <string name="forgot_password"> <u>Forgot password?</u></string>
+    <string name="signup"><u>Sign Up!</u></string>
+    <string name="app_name">Troy Campus Application</string>
 </resources>

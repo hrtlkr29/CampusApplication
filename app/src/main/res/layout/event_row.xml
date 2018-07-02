@@ -15,7 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_marginLeft="15dp">
+        android:layout_marginLeft="7dp">
 
         <TextView
             android:id="@+id/tvEventName"
@@ -23,7 +23,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Chrismas testing event"
-            android:textSize="18sp"/>
+            android:textSize="22sp"/>
         <TextView
             android:id="@+id/tvEventTime"
             android:layout_width="wrap_content"

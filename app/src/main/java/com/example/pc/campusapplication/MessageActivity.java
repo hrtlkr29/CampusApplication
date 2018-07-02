@@ -1,6 +1,7 @@
 package com.example.pc.campusapplication;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -35,6 +36,7 @@ public class MessageActivity extends AppCompatActivity implements View.OnClickLi
     DatabaseReference messRef;
     DatabaseReference user;
     ProgressDialog progressDialog;
+    String eventID;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +45,8 @@ public class MessageActivity extends AppCompatActivity implements View.OnClickLi
         uid = auth.getCurrentUser().getUid();
         db = FirebaseDatabase.getInstance().getReference();
 
+        Intent intent = getIntent();
+        eventID = intent.getStringExtra("eventID");
         txtMess = findViewById(R.id.txtMess);
         lvMessages = findViewById(R.id.lstMess);
         btnSend = findViewById(R.id.btnSend);
@@ -59,7 +63,7 @@ public class MessageActivity extends AppCompatActivity implements View.OnClickLi
     private void loadMessages(){
         progressDialog.show();
         messages = new ArrayList<>();
-        messRef = db.child("events").child("messages");
+        messRef = db.child("events").child(eventID).child("messages");
         ValueEventListener listener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -103,7 +107,7 @@ public class MessageActivity extends AppCompatActivity implements View.OnClickLi
                     String firstname = user.firstName;
                     App.hideKeyboard(MessageActivity.this);
                     Message message = new Message(firstname.toString(),getMessage);
-                    DatabaseReference ref = db.child("events").child("messages").push();
+                    DatabaseReference ref = db.child("events").child(eventID).child("messages").push();
                     ref.setValue(message);
                     txtMess.setText("");
                 }

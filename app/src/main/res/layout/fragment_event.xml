@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
+    android:background="@color/colorTint"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -9,28 +10,30 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:text="Upcoming events"
-            android:gravity="center"
-            android:textSize="22sp" />
-
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Events"
+    android:textColor="@color/black"
+    android:gravity="center_vertical"
+    android:layout_centerHorizontal="true"
+    android:layout_centerVertical="true"
+    android:textSize="18sp"/>
         <Button
+            android:background="@color/colorTint"
             android:id="@+id/btnAddEvent"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
             android:layout_alignParentEnd="true"
             android:layout_alignParentTop="true"
             android:text="+"
-            android:textSize="24sp"
+            android:textSize="30sp"
             />
     </RelativeLayout>
 
 
     <ListView
+        android:background="@color/colorTint"
         android:id="@+id/lvEvent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"></ListView>

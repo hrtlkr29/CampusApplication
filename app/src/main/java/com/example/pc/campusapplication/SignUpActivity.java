@@ -5,12 +5,14 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -39,7 +41,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         txtEmail = findViewById(R.id.txtEmail);
         txtPass = findViewById(R.id.txtPass);
         txtRePass = findViewById(R.id.txtRePass);
-        btnRegister = findViewById(R.id.btnRegister);
+        btnRegister = findViewById(R.id.btnLogin);
         btnRegister.setOnClickListener(this);
 
         progressDialog = new ProgressDialog(this);
@@ -50,7 +52,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
     @Override
     public void onClick(View view) {
-        if (view.getId() == R.id.btnRegister) {
+        if (view.getId() == R.id.btnLogin) {
             progressDialog.show();
             performRegister();
         }
@@ -60,6 +62,13 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         final String email = txtEmail.getText().toString().trim();
         String pass = txtPass.getText().toString().trim();
         String repass = txtRePass.getText().toString();
+        String firstName = txtFirst.getText().toString().trim();
+        String lastName = txtLast.getText().toString().trim();
+
+        if(email.isEmpty() || pass.isEmpty() || repass.isEmpty() || firstName.isEmpty() || lastName.isEmpty()){
+            Toast.makeText(app, "Please fill all information", Toast.LENGTH_SHORT).show();
+            progressDialog.hide();
+        }
 
         if (verifyEmailAndPassword(email, pass, repass)) {
 
@@ -72,8 +81,15 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                         Toast.makeText(SignUpActivity.this, "Register successfully", Toast.LENGTH_SHORT).show();
                         writeUserData(uid, email);
                         progressDialog.hide();
-                    } else
-                        Toast.makeText(SignUpActivity.this, "Register failed", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+            task.addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    progressDialog.hide();
+                    Toast.makeText(app, "Sign up failed!", Toast.LENGTH_SHORT).show();
+                    Log.i("Register failed: ",e.toString());
                 }
             });
         }
@@ -82,11 +98,13 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     private boolean verifyEmailAndPassword(String email, String pass, String repass) {
         if (!email.contains("@")) {
             Toast.makeText(this, "Email is invalid", Toast.LENGTH_SHORT).show();
+            progressDialog.hide();
             return false;
         }
 
         if (!pass.equals(repass)) {
             Toast.makeText(this, "Password is not match", Toast.LENGTH_SHORT).show();
+            progressDialog.hide();
             return false;
         }
 

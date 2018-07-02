@@ -1,71 +1,207 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<!--<?xml version="1.0" encoding="utf-8"?>-->
+<!--<LinearLayout-->
+    <!--xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:orientation="vertical">-->
+
+    <!--<TextView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="Add new event"-->
+        <!--android:gravity="center"-->
+        <!--android:textSize="24sp"/>-->
+
+    <!--<EditText-->
+        <!--android:layout_marginTop="20dp"-->
+        <!--android:id="@+id/txtNewEventName"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:hint="Event name"-->
+        <!--android:textSize="24sp" />-->
+
+    <!--<EditText-->
+        <!--android:layout_marginTop="10dp"-->
+        <!--android:id="@+id/txtNewEventAddress"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:hint="Address"-->
+        <!--android:textSize="24sp" />-->
+
+    <!--<TextView-->
+        <!--android:layout_marginTop="10dp"-->
+        <!--android:id="@+id/txtNewEventDate"-->
+        <!--android:focusable="false"-->
+        <!--android:clickable="true"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:hint="Date"-->
+        <!--android:textSize="24sp" />-->
+
+    <!--<TextView-->
+        <!--android:id="@+id/txtNewEventTime"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginTop="20dp"-->
+        <!--android:hint="Time"-->
+        <!--android:textSize="24sp" />-->
+
+    <!--<TextView-->
+        <!--android:id="@+id/txtNewEventImage"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginTop="20dp"-->
+        <!--android:hint="Event thumbnail"-->
+        <!--android:textSize="24sp" />-->
+
+    <!--<ImageView-->
+        <!--android:id="@+id/ivNewEventImage"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="135dp" />-->
+
+    <!--<Button-->
+        <!--android:layout_gravity="center"-->
+        <!--android:gravity="center"-->
+        <!--android:id="@+id/btnAddEvent"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="Add"-->
+        <!--android:textSize="16dp"/>-->
+
+<!--</LinearLayout>-->
+
+
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:background="@color/colorTint">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Add new event"
-        android:gravity="center"
-        android:textSize="24sp"/>
-
-    <EditText
-        android:layout_marginTop="20dp"
-        android:id="@+id/txtNewEventName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Event name"
-        android:textSize="24sp" />
-
-    <EditText
-        android:layout_marginTop="10dp"
-        android:id="@+id/txtNewEventAddress"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Address"
-        android:textSize="24sp" />
-
-    <TextView
-        android:layout_marginTop="10dp"
-        android:id="@+id/txtNewEventDate"
-        android:focusable="false"
-        android:clickable="true"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Date"
-        android:textSize="24sp" />
-
-    <TextView
-        android:id="@+id/txtNewEventTime"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:hint="Time"
-        android:textSize="24sp" />
-
-    <TextView
-        android:id="@+id/txtNewEventImage"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:hint="Event thumbnail"
-        android:textSize="24sp" />
 
     <ImageView
-        android:id="@+id/ivNewEventImage"
-        android:layout_width="match_parent"
-        android:layout_height="135dp" />
+        android:id="@+id/ic_logo"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <EditText
+        android:layout_marginTop="@dimen/margin_top"
+        android:paddingLeft="@dimen/medium_padding"
+        android:layout_marginLeft="@dimen/margin_left_right"
+        android:layout_marginRight="@dimen/margin_left_right"
+        android:background="@drawable/bg_tb_login"
+        android:textColor="@color/grey"
+        android:textColorHint="@color/grey"
+        android:id="@+id/txtNewEventName"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/width"
+        android:hint="Event Name"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/ic_logo"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentLeft="true"
+        android:inputType="text"
+        />
+
+    <EditText
+        android:paddingLeft="@dimen/medium_padding"
+        android:layout_marginLeft="@dimen/margin_left_right"
+        android:layout_marginRight="@dimen/margin_left_right"
+        android:background="@drawable/bg_tb_login"
+        android:textColor="@color/grey"
+        android:textColorHint="@color/grey"
+        android:id="@+id/txtNewEventAddress"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/width"
+        android:hint="Address"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/txtNewEventName"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="@dimen/margin_top_normal"
+        android:inputType="text"/>
+
+    <TextView
+        android:paddingLeft="@dimen/medium_padding"
+        android:layout_marginLeft="@dimen/margin_left_right"
+        android:layout_marginRight="@dimen/margin_left_right"
+        android:background="@drawable/bg_tb_login"
+        android:textColor="@color/grey"
+        android:textColorHint="@color/grey"
+        android:id="@+id/txtNewEventDate"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/width"
+        android:hint="Date"
+        android:gravity="center_vertical"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/txtNewEventAddress"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="@dimen/margin_top_normal"
+        android:inputType="date"/>
+
+    <TextView
+        android:paddingLeft="@dimen/medium_padding"
+        android:layout_marginLeft="@dimen/margin_left_right"
+        android:layout_marginRight="@dimen/margin_left_right"
+        android:background="@drawable/bg_tb_login"
+        android:textColor="@color/grey"
+        android:textColorHint="@color/grey"
+        android:id="@+id/txtNewEventTime"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/width"
+        android:hint="Time"
+        android:gravity="center_vertical"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/txtNewEventDate"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="@dimen/margin_top_normal"
+        android:inputType="time"/>
 
     <Button
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:id="@+id/btnAddEvent"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Add"
-        android:textSize="16dp"/>
+        android:paddingLeft="@dimen/medium_padding"
+        android:layout_marginLeft="@dimen/margin_left_right"
+        android:layout_marginRight="@dimen/margin_left_right"
+        android:background="@drawable/bg_tb_login"
+        android:textColor="@color/grey"
+        android:textColorHint="@color/grey"
+        android:id="@+id/btnAddImage"
+        android:layout_width="wrap_content"
+        android:gravity="center_vertical"
+        android:layout_height="@dimen/width"
+        android:hint="Choose Event Thumbnail"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/txtNewEventTime"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="@dimen/margin_top_normal"
+        android:inputType="text"/>
 
-</LinearLayout>
+    <ImageView
+        android:layout_marginTop="20dp"
+        android:layout_below="@id/btnAddImage"
+        android:id="@+id/ivNewEventImage"
+        android:scaleType="fitXY"
+        android:layout_width="match_parent"
+        android:layout_height="150dp" />
+
+    <Button
+        android:textAllCaps="false"
+        android:id="@+id/btnAddEvent"
+        android:textSize="@dimen/text_size"
+        android:textColor="@color/white"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/width"
+        android:text="Add!"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/ivNewEventImage"
+        android:layout_marginTop="@dimen/margin_top_normal"
+        android:layout_alignStart="@+id/txtPass"
+        android:layout_alignEnd="@+id/txtPass"
+        android:background="@color/dark_tint"/>
+
+
+
+</RelativeLayout>

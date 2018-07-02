@@ -1,7 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="dark_tint">#5fcbe8</color>
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <color name="colorGrey">#686464</color>
+    <color name="colorTint">#99d9ea</color>
+    <color name="colorOrange">#ff7f07</color>
+    <color name="colorFacebookBackground">#3b5998</color>
+    <color name="colorBtnLoginFacebookBackground">#0c3586</color>
+    <color name="white">#ffffff</color>
+    <color name="grey">#767171</color>
+    <color name="light_grey">#bcadad</color>
+    <color name="black">#000000</color>
+
 </resources>

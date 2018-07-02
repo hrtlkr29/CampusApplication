@@ -1,19 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
+    android:background="@color/colorTint"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Choose your major"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:textSize="30sp"
-        android:layout_marginBottom="25dp"
-        android:textColor="@color/browser_actions_title_color"/>
+    <!--<TextView-->
+        <!--android:background="@color/colorTint"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="Choose your major"-->
+        <!--android:layout_gravity="center"-->
+        <!--android:gravity="center"-->
+        <!--android:textSize="30sp"-->
+        <!--android:layout_marginBottom="25dp"-->
+        <!--android:textColor="@color/browser_actions_title_color"/>-->
 
     <!--<LinearLayout-->
         <!--android:layout_width="match_parent"-->
@@ -45,11 +47,12 @@
                 <!--android:background="@drawable/img_cs"/>-->
         <!--</LinearLayout>-->
     <!--</LinearLayout>-->
-    <GridView
-        android:id="@+id/gridAcademic"
+    <ListView
+        android:background="@color/colorTint"
+        android:id="@+id/listAcademic"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:numColumns="2">
 
-    </GridView>
+    </ListView>
 </LinearLayout>

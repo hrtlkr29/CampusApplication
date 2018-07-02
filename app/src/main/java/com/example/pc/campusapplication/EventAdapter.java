@@ -3,6 +3,7 @@ package com.example.pc.campusapplication;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -11,9 +12,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -44,6 +50,7 @@ public class EventAdapter extends ArrayAdapter<Event> {
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+
         if(convertView == null){
             viewHolder = new ViewHolder();
             LayoutInflater inflater = LayoutInflater.from(context);
@@ -61,9 +68,14 @@ public class EventAdapter extends ArrayAdapter<Event> {
         viewHolder.tvEventName.setText(event.getName());
         viewHolder.tvEventTime.setText(event.getTime());
         viewHolder.tvEventPlace.setText(event.getAddress());
-        Glide.with(this.getContext())
+
+        GlideApp.with(this.getContext())
                 .load(event.getImageUri())
+                .fitCenter()
+                .centerCrop()
+                .override(150,150)
                 .into(viewHolder.ivEventImage);
+
         return convertView;
     }
 

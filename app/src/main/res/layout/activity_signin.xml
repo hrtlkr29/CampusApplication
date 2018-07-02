@@ -1,48 +1,144 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
 
-    <TextView
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Sign In"
-        android:gravity="center"
-        android:textSize="36sp"/>
+        android:layout_height="match_parent"
+        android:background="@color/colorTint">
 
-    <EditText
-        android:layout_marginTop="20dp"
-        android:id="@+id/txtEmail"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Email"
-        android:textSize="24sp" />
 
-    <EditText
-        android:layout_marginTop="20dp"
-        android:id="@+id/txtPass"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Password"
-        android:textSize="24sp" />
+        <ImageView
 
-    <Button
-        android:layout_marginTop="20dp"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:id="@+id/btnLogin"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Login" />
+            android:id="@+id/ic_logo"
+            android:layout_width="@dimen/image_size_width"
+            android:layout_height="@dimen/image_size_height"
+            android:src="@drawable/ico_troy"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="30dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true" />
 
-    <Button
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:id="@+id/btnRegister"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Register" />
+        <EditText
+            android:layout_marginTop="@dimen/margin_top"
+            android:paddingLeft="@dimen/medium_padding"
+            android:layout_marginLeft="@dimen/margin_left_right"
+            android:layout_marginRight="@dimen/margin_left_right"
+            android:background="@drawable/bg_tb_login"
+            android:textColor="@color/grey"
+            android:textColorHint="@color/grey"
+            android:id="@+id/txtEmail"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/width"
+            android:hint="@string/user_name"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/ic_logo"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentLeft="true"
+            android:inputType="textEmailAddress"
+            />
 
-</LinearLayout>
+        <EditText
+            android:paddingLeft="@dimen/medium_padding"
+            android:layout_marginLeft="@dimen/margin_left_right"
+            android:layout_marginRight="@dimen/margin_left_right"
+            android:background="@drawable/bg_tb_login"
+            android:textColor="@color/grey"
+            android:textColorHint="@color/grey"
+            android:id="@+id/txtPass"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/width"
+            android:hint="@string/pass_word"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/txtEmail"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginTop="@dimen/margin_top_normal"
+            android:inputType="textPassword"/>
+
+        <Button
+            android:textAllCaps="false"
+            android:id="@+id/btnLogin"
+            android:textSize="@dimen/text_size"
+            android:textColor="@color/white"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/width"
+            android:text="Login"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/txtPass"
+            android:layout_marginTop="@dimen/margin_top_normal"
+            android:layout_alignStart="@+id/txtPass"
+            android:layout_alignEnd="@+id/txtPass"
+            android:background="@color/dark_tint"/>
+
+        <Button
+            android:textColor="@color/light_grey"
+            android:id="@+id/btn_forgot"
+            android:layout_alignStart="@+id/btnLogin"
+            android:layout_alignEnd="@+id/btnLogin"
+            android:textAllCaps="false"
+            android:background="@android:color/transparent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/btnLogin"
+            android:text="@string/forgot_password"
+            android:layout_centerHorizontal="true"
+            android:textSize="@dimen/text_size"
+            android:layout_marginTop="@dimen/margin_top_normal"/>
+
+        <Button
+            android:id="@+id/btnRegister"
+            android:layout_alignStart="@+id/btnLogin"
+            android:layout_alignEnd="@+id/btnLogin"
+            android:textAllCaps="false"
+            android:background="@android:color/transparent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:text="@string/signup"
+            android:layout_centerHorizontal="true"
+            android:textSize="@dimen/text_size"
+            android:textColor="@color/white"
+            android:layout_marginBottom="@dimen/margin_top"/>
+
+
+        <!--<TextView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="Sign In"-->
+        <!--android:gravity="center"-->
+        <!--android:textSize="36sp"/>-->
+
+        <!--<EditText-->
+        <!--android:layout_marginTop="20dp"-->
+        <!--android:id="@+id/txtEmail"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:hint="Email"-->
+        <!--android:textSize="24sp" />-->
+
+        <!--<EditText-->
+        <!--android:layout_marginTop="20dp"-->
+        <!--android:id="@+id/txtPass"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:hint="Password"-->
+        <!--android:textSize="24sp" />-->
+
+        <!--<Button-->
+        <!--android:layout_marginTop="20dp"-->
+        <!--android:layout_gravity="center"-->
+        <!--android:gravity="center"-->
+        <!--android:id="@+id/btnLogin"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="Login" />-->
+
+        <!--<Button-->
+        <!--android:layout_gravity="center"-->
+        <!--android:gravity="center"-->
+        <!--android:id="@+id/btnRegister"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="Register" />-->
+
+
+    </RelativeLayout>

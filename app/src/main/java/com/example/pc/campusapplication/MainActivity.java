@@ -18,12 +18,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     MenuPagerAdapter menuPagerAdapter;
     ImageButton btnAcademic, btnEvent, btnSport, btnSetting;
     EventFragment eventFragment;
-    EventDetailFragment eventDetailFragment;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         eventFragment = new EventFragment();
-        eventDetailFragment = new EventDetailFragment();
         setContentView(R.layout.activity_main);
         btnAcademic = findViewById(R.id.btnAcademic);
         btnEvent = findViewById(R.id.btnEvent);
@@ -76,7 +74,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             btnSetting.setBackground(getDrawable(R.drawable.ico_setting_black));
         }
         else if(position == 1){
-            showFragment(eventFragment,eventDetailFragment);
             btnAcademic.setBackground(getDrawable(R.drawable.ico_academic_black));
             btnEvent.setBackground(getDrawable(R.drawable.ico_event_red));
             btnSport.setBackground(getDrawable(R.drawable.ico_sport_black));

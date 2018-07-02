@@ -39,6 +39,10 @@ public class EventFragment extends Fragment implements AdapterView.OnItemClickLi
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         model = ViewModelProviders.of(getActivity()).get(SharedEventModel.class);
+        progressDialog = new ProgressDialog(this.getContext());
+        progressDialog.setMessage("Loading...");
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progressDialog.setIndeterminate(true);
     }
 
     @Nullable
@@ -48,22 +52,16 @@ public class EventFragment extends Fragment implements AdapterView.OnItemClickLi
         btnAddEvent = rootView.findViewById(R.id.btnAddEvent);
         db = FirebaseDatabase.getInstance().getReference();
         lvEvents = rootView.findViewById(R.id.lvEvent);
+        ButtonHandler handler = new ButtonHandler();
+        btnAddEvent.setOnClickListener(handler);
+        loadEvents();
+        lvEvents.setOnItemClickListener(this);
         return rootView;
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        progressDialog = new ProgressDialog(this.getContext());
-        progressDialog.setMessage("Loading...");
-        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        progressDialog.setIndeterminate(true);
-        ButtonHandler handler = new ButtonHandler();
-        btnAddEvent.setOnClickListener(handler);
-        loadEvents();
-//        setCallback((EventListCallback)getActivity());
-        lvEvents.setOnItemClickListener(this);
-
     }
 
     @Override
@@ -76,6 +74,7 @@ public class EventFragment extends Fragment implements AdapterView.OnItemClickLi
         intent.putExtra("eventDate",event.getDate());
         intent.putExtra("eventDescription",event.getDescription());
         intent.putExtra("eventImageURL",event.getImageUri());
+        intent.putExtra("eventID",event.getId());
         startActivity(intent);
 //        eventListCallback.onListEventClicked(event);
     }
@@ -89,9 +88,6 @@ public class EventFragment extends Fragment implements AdapterView.OnItemClickLi
         }
     }
 
-//    public void setCallback(EventListCallback callback){
-//        eventListCallback = callback;
-//    }
 
     private void goToAddEvent(){
         Intent intent = new Intent(this.getActivity(),AddEventActivity.class);

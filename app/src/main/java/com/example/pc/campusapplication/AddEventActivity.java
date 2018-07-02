@@ -1,7 +1,6 @@
 package com.example.pc.campusapplication;
 
 import android.app.DatePickerDialog;
-import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -23,11 +22,8 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.Continuation;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -46,7 +42,7 @@ import java.util.UUID;
 public class AddEventActivity extends AppCompatActivity implements View.OnClickListener {
     TextView tvCalendar;
     TextView tvTime;
-    TextView tvImage;
+    Button btnImage;
     EditText edtName, edtAddress;
     Button btnAddEvent;
     Calendar calendar = Calendar.getInstance();
@@ -74,7 +70,7 @@ public class AddEventActivity extends AppCompatActivity implements View.OnClickL
         tvTime = findViewById(R.id.txtNewEventTime);
         edtName = findViewById(R.id.txtNewEventName);
         btnAddEvent = findViewById(R.id.btnAddEvent);
-        tvImage = findViewById(R.id.txtNewEventImage);
+        btnImage = findViewById(R.id.btnAddImage);
         edtAddress = findViewById(R.id.txtNewEventAddress);
         final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
             @Override
@@ -112,7 +108,7 @@ public class AddEventActivity extends AppCompatActivity implements View.OnClickL
                 timePickerDialog.show();
             }
         });
-        tvImage.setOnClickListener(new View.OnClickListener() {
+        btnImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 openGallery();
@@ -164,16 +160,6 @@ public class AddEventActivity extends AppCompatActivity implements View.OnClickL
         }
     }
 
-
-    //    private void writeUserData(String uid, String email) {
-//        String firstName = txtFirst.getText().toString().trim();
-//        String lastName = txtLast.getText().toString().trim();
-//        String token = app.loadPref(App.FCM_TOKEN);
-//        User user = new User(uid, email, firstName, lastName, token);
-//        db.child("users").child(uid).setValue(user);
-//        finish(); // back to sign in activity
-//        // go to main activity
-//    }
 
     private void addEventToDB(){
 
@@ -229,32 +215,6 @@ public class AddEventActivity extends AppCompatActivity implements View.OnClickL
             }
         });
 
-
-
-//        Uri file = Uri.fromFile(new File("images/" + eventName + ".jpg"));
-//        final StorageReference ref = storageRef.child("images/" + eventName + ".jpg");
-//        uploadTask = ref.putFile(file);
-//        Task<Uri> urlTask = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
-//            @Override
-//            public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
-//                if (!task.isSuccessful()) {
-//                    throw task.getException();
-//                }
-//                // Continue with the task to get the download URL
-//                return imageReference.getDownloadUrl();
-//            }
-//        }).addOnCompleteListener(new OnCompleteListener<Uri>() {
-//            @Override
-//            public void onComplete(@NonNull Task<Uri> task) {
-//                if (task.isSuccessful()) {
-//                    Uri imageURL = task.getResult();
-//                    db.child("events").child(ueid).child("imageUri").setValue(imageURL);
-//                } else {
-//                    // Handle failures
-//                    // ...
-//                }
-//            }
-//        });
     }
 
     @Override

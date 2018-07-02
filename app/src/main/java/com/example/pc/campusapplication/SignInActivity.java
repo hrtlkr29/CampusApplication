@@ -67,21 +67,28 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
     private void performLogin(){
         String email = txtEmail.getText().toString();
         String password = txtPass.getText().toString();
+        if(email.isEmpty() || password.isEmpty()){
+            Toast.makeText(this, "Please enter your email and password", Toast.LENGTH_SHORT).show();
+            progressDialog.hide();
+        }
+        else{
+            Task<AuthResult> task = auth.signInWithEmailAndPassword(email,password);
+            task.addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+                    if(task.isSuccessful()){
+                        Toast.makeText(SignInActivity.this, "Login successfully", Toast.LENGTH_SHORT).show();
+                        progressDialog.hide();
+                        goToMainScreen();
+                    }
+                    else{
+                        progressDialog.hide();
+                        Toast.makeText(SignInActivity.this, "Login failed", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+        }
 
-        Task<AuthResult> task = auth.signInWithEmailAndPassword(email,password);
-        task.addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if(task.isSuccessful()){
-                    Toast.makeText(SignInActivity.this, "Login successfully", Toast.LENGTH_SHORT).show();
-                    progressDialog.hide();
-                    goToMainScreen();
-                }
-                else{
-                    Toast.makeText(SignInActivity.this, "Login failed", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
     }
 
     private void goToMainScreen(){
