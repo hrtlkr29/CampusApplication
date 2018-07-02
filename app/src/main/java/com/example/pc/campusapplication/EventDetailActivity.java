@@ -7,12 +7,24 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class EventDetailActivity extends AppCompatActivity implements View.OnClickListener {
-    private TextView txtName, txtPlace, txtTime, txtDate, txtDescription;
+    private TextView txtName, txtPlace, txtTime, txtDate, txtDescription, txtParticipants;
     private ImageView thumbnail;
     Button btnJoinEvent, btnMessage;
-    String name, date, time, address, description, imageURL, id;
+    String name, date, time, address, description, imageURL, eventId, uid, participants;
+    FirebaseAuth auth;
+    DatabaseReference db;
+    Boolean isJoined = false;
+    int participantCount;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,51 +34,112 @@ public class EventDetailActivity extends AppCompatActivity implements View.OnCli
         txtPlace = findViewById(R.id.tvEventDetailPlace);
         txtTime = findViewById(R.id.tvEventDetailTime);
         txtDescription = findViewById(R.id.tvEventDetailDescription);
+        txtParticipants = findViewById(R.id.tvEventDetailParticipants);
         thumbnail = findViewById(R.id.detailThumbnail);
         btnJoinEvent = findViewById(R.id.btnJoinEvent);
         btnMessage = findViewById(R.id.btnMessage);
 
+        auth = FirebaseAuth.getInstance();
+        uid = auth.getCurrentUser().getUid();
+        db = FirebaseDatabase.getInstance().getReference();
         Intent intent = getIntent();
+        participantCount = 0;
+        name = intent.getStringExtra("eventName");
+        date = intent.getStringExtra("eventDate");
+        time = intent.getStringExtra("eventTime");
+        address = intent.getStringExtra("eventPlace");
+        description = intent.getStringExtra("eventDescription");
+        imageURL = intent.getStringExtra("eventImageURL");
+        eventId = intent.getStringExtra("eventID");
 
-
-         name = intent.getStringExtra("eventName");
-         date = intent.getStringExtra("eventDate");
-         time = intent.getStringExtra("eventTime");
-         address = intent.getStringExtra("eventPlace");
-         description = intent.getStringExtra("eventDescription");
-         imageURL = intent.getStringExtra("eventImageURL");
-         id = intent.getStringExtra("eventID");
+        DatabaseReference participantsRef = db.child("events").child(eventId).child("participants");
+        participantsRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                participantCount = 0;
+                for(DataSnapshot child : dataSnapshot.getChildren()){
+                    participantCount++;
+                    boolean isJoined = false;
+                    txtParticipants.setText(participantCount + " have joined this event");
+                    User user = child.getValue(User.class);
+                }
+                if(isJoined == true){
+                    btnJoinEvent.setBackgroundColor(getResources().getColor(R.color.grey));
+                    btnJoinEvent.setEnabled(false);
+                }
+                else if(isJoined == false){
+                    btnJoinEvent.setBackgroundColor(getResources().getColor(R.color.dark_tint));
+                    btnJoinEvent.setEnabled(true);
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                System.out.println("The read failed: " + databaseError.getCode());
+            }
+        });
 
         txtName.setText(name);
         txtPlace.setText(address);
         txtTime.setText(time);
         txtDate.setText(date);
         txtDescription.setText(description);
+        txtParticipants.setText(participantCount + " have joined this event");
         GlideApp.with(this)
                 .load(imageURL)
-                .override(400,200)
+                .override(400, 200)
                 .fitCenter()
                 .centerCrop()
                 .into(thumbnail);
 
         btnMessage.setOnClickListener(this);
         btnJoinEvent.setOnClickListener(this);
+        txtParticipants.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View view) {
         int id = view.getId();
-        if (id == R.id.btnJoinEvent ){
-//            joinEvent();
+        if (id == R.id.btnJoinEvent) {
+            joinEvent();
         }
-        if(id == R.id.btnMessage){
+        if (id == R.id.btnMessage) {
             goToMessages();
+        }
+        if (id == R.id.tvEventDetailParticipants){
+            goToParticipants();
         }
     }
 
-    private void goToMessages(){
+    private void goToMessages() {
         Intent intent = new Intent(EventDetailActivity.this, MessageActivity.class);
-        intent.putExtra("eventID",this.id);
+        intent.putExtra("eventID", this.eventId);
         startActivity(intent);
+    }
+
+    private void goToParticipants(){
+        Intent intent = new Intent(EventDetailActivity.this, EventParticipantActivity.class);
+        intent.putExtra("eventID", this.eventId);
+        startActivity(intent);
+    }
+
+    private void joinEvent() {
+        this.isJoined = true;
+        DatabaseReference userRef = db.child("users").child(uid);
+        final Participant participant = new Participant();
+        userRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                User user = dataSnapshot.getValue(User.class);
+                DatabaseReference participantInfoRef = db.child("events").child(eventId).child("participants").push();
+                participantInfoRef.setValue(user);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                System.out.println("The read failed: " + databaseError.getCode());
+            }
+        });
+        btnJoinEvent.setEnabled(false);
+        btnJoinEvent.setBackgroundColor(getResources().getColor(R.color.grey));
     }
 }
