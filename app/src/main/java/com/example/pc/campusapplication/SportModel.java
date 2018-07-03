@@ -2,13 +2,13 @@ package com.example.pc.campusapplication;
 
 public class SportModel {
 
-    private String title;
-    private String description;
-    private String image;
+     String title;
+     String description;
+     String image;
 
 
     public String getTitle() {
-        return title;
+        return this.title;
     }
 
     public void setTitle(String title) {
@@ -24,7 +24,7 @@ public class SportModel {
     }
 
     public String getImage() {
-        return image;
+        return this.image;
     }
 
     public void setImage(String image) {

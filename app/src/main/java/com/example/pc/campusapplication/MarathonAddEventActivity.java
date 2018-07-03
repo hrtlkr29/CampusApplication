@@ -60,10 +60,13 @@ public class MarathonAddEventActivity extends AppCompatActivity implements View.
     FirebaseStorage storage = FirebaseStorage.getInstance();
     StorageReference storageRef = storage.getReference();
     String ueid = UUID.randomUUID().toString().replaceAll("-", "");
-
+    Boolean choseImage;
+    Boolean fillAll;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        choseImage = false;
+        fillAll = false;
         setContentView(R.layout.activity_add_event);
         db = FirebaseDatabase.getInstance().getReference();
         tvCalendar = findViewById(R.id.txtNewEventDate);
@@ -177,43 +180,56 @@ public class MarathonAddEventActivity extends AppCompatActivity implements View.
     private void saveImageToDB(){
         String eventName = edtName.getText().toString().trim();
         eventName = eventName.replace(" ","");
-        final StorageReference imageReference = storageRef.child("images/"+ueid);
-        // Get the data from an ImageView as bytes
-        ivPreview.setDrawingCacheEnabled(true);
-        ivPreview.buildDrawingCache();
-        Bitmap bitmap = ((BitmapDrawable) ivPreview.getDrawable()).getBitmap();
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-        byte[] data = baos.toByteArray();
+        if(this.fillAll == true && this.choseImage == false){
+            finish();
+        }
+        if (this.choseImage == false && this.fillAll == false){
+            return;
+        }
+        if(this.choseImage == true && this.fillAll == false){
+            return;
+        }
+        else if(this.choseImage == true && this.fillAll == true){
+            final StorageReference imageReference = storageRef.child("images/"+ueid);
+            // Get the data from an ImageView as bytes
+            ivPreview.setDrawingCacheEnabled(true);
+            ivPreview.buildDrawingCache();
+            Bitmap bitmap = ((BitmapDrawable) ivPreview.getDrawable()).getBitmap();
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+            byte[] data = baos.toByteArray();
 
-        UploadTask uploadTask = imageReference.putBytes(data);
-        uploadTask.addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception exception) {
-                // Handle unsuccessful uploads
-            }
-        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                // taskSnapshot.getMetadata() contains file metadata such as size, content-type, etc.
-                // ...
-                StorageMetadata metadata = taskSnapshot.getMetadata();
-                StorageReference imgReference = metadata.getReference();
-                imgReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                    @Override
-                    public void onSuccess(Uri uri) {
-                        // Got the download URL for 'users/me/profile.png'
-                        Log.d("Image uid",uri.toString());
-                        db.child("sport").child("Marathon").child("event").child(ueid).child("imageUri").setValue(uri.toString());
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception exception) {
-                        // Handle any errors
-                    }
-                });
-            }
-        });
+            UploadTask uploadTask = imageReference.putBytes(data);
+            uploadTask.addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception exception) {
+                    // Handle unsuccessful uploads
+                }
+            }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    // taskSnapshot.getMetadata() contains file metadata such as size, content-type, etc.
+                    // ...
+                    StorageMetadata metadata = taskSnapshot.getMetadata();
+                    StorageReference imgReference = metadata.getReference();
+                    imgReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+                            // Got the download URL for 'users/me/profile.png'
+                            Log.d("Image uid",uri.toString());
+                            db.child("sport").child("robot").child("event").child(ueid).child("imageUri").setValue(uri.toString());
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception exception) {
+                            // Handle any errors
+                        }
+                    });
+                }
+            });
+            finish();
+        }
+
 
     }
 

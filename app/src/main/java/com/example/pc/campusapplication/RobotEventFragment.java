@@ -35,10 +35,10 @@ public class RobotEventFragment extends Fragment implements AdapterView.OnItemCl
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         model = ViewModelProviders.of(getActivity()).get(SharedEventModel.class);
-        progressDialog = new ProgressDialog(this.getContext());
-        progressDialog.setMessage("Loading...");
-        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        progressDialog.setIndeterminate(true);
+//        progressDialog = new ProgressDialog(this.getContext());
+//        progressDialog.setMessage("Loading...");
+//        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+//        progressDialog.setIndeterminate(true);
     }
 
     @Nullable
@@ -90,7 +90,7 @@ public class RobotEventFragment extends Fragment implements AdapterView.OnItemCl
     }
 
     private void loadEvents(){
-        progressDialog.show();
+//        progressDialog.show();
         events = new ArrayList<>();
         eventRef = db.child("sport").child("robot").child("event");
         ValueEventListener listener = new ValueEventListener() {
@@ -103,7 +103,7 @@ public class RobotEventFragment extends Fragment implements AdapterView.OnItemCl
                 }
                 adapter = new EventAdapter(getContext(), R.layout.event_row,events);
                 list_sp_event.setAdapter(adapter);
-                progressDialog.hide();
+//                progressDialog.hide();
             }
 
             @Override

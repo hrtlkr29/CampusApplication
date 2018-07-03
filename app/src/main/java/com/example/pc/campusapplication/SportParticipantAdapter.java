@@ -46,7 +46,7 @@ public class SportParticipantAdapter extends ArrayAdapter<User> {
             holder = (ViewHolder) convertView.getTag();
         }
         User name = this.users.get(position);
-        holder.tvUser.setText(name.getEmail());
+        holder.tvUser.setText(name.getFirstName());
 
         return convertView;
     }
