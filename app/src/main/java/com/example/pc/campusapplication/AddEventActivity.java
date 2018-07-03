@@ -1,5 +1,6 @@
 package com.example.pc.campusapplication;
 
+import android.app.ActionBar;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
@@ -14,10 +15,12 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -43,7 +46,7 @@ public class AddEventActivity extends AppCompatActivity implements View.OnClickL
     TextView tvCalendar;
     TextView tvTime;
     Button btnImage;
-    EditText edtName, edtAddress;
+    EditText edtName, edtAddress, edtDescription;
     Button btnAddEvent;
     Calendar calendar = Calendar.getInstance();
     int currentHour;
@@ -60,11 +63,14 @@ public class AddEventActivity extends AppCompatActivity implements View.OnClickL
     FirebaseStorage storage = FirebaseStorage.getInstance();
     StorageReference storageRef = storage.getReference();
     String ueid = UUID.randomUUID().toString().replaceAll("-", "");
-
+    Boolean choseImage;
+    Boolean fillAll;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_event);
+        choseImage = false;
+        fillAll = false;
         db = FirebaseDatabase.getInstance().getReference();
         tvCalendar = findViewById(R.id.txtNewEventDate);
         tvTime = findViewById(R.id.txtNewEventTime);
@@ -72,6 +78,7 @@ public class AddEventActivity extends AppCompatActivity implements View.OnClickL
         btnAddEvent = findViewById(R.id.btnAddEvent);
         btnImage = findViewById(R.id.btnAddImage);
         edtAddress = findViewById(R.id.txtNewEventAddress);
+        edtDescription = findViewById(R.id.txtNewEventDescription);
         final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int monthOfYear, int dayOfMonth) {
@@ -157,63 +164,90 @@ public class AddEventActivity extends AppCompatActivity implements View.OnClickL
             // Load the selected image into a preview
             ivPreview = (ImageView) findViewById(R.id.ivNewEventImage);
             ivPreview.setImageBitmap(selectedImageBitmap);
+            this.choseImage = true;
+            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+            params.addRule(RelativeLayout.BELOW,ivPreview.getId());
+            params.addRule(RelativeLayout.CENTER_HORIZONTAL);
+            params.topMargin = 40;
+            params.bottomMargin = 40;
+            btnAddEvent.setLayoutParams(params);
+            btnAddEvent.setBackgroundColor(getResources().getColor(R.color.dark_tint));
         }
     }
 
 
     private void addEventToDB(){
-
         String eventName = edtName.getText().toString().trim();
         String eventDate = tvCalendar.getText().toString().trim();
         String eventTime = tvTime.getText().toString().trim();
         String dbReference = "images/" + eventName + ".jpg";
         String eventThumbnail = dbReference.replace(" ", "");
         String eventAddress = edtAddress.getText().toString().trim();
-        Event event = new Event(ueid,eventName,eventDate,eventAddress,"",eventTime,eventThumbnail,"");
-        db.child("events").child(ueid).setValue(event);
+        String eventDescription = edtDescription.getText().toString().trim();
+        if (eventName.isEmpty() || eventDate.isEmpty() || eventTime.isEmpty() || eventAddress.isEmpty()){
+            Toast.makeText(AddEventActivity.this, "Please fill all the information", Toast.LENGTH_SHORT).show();
+        }
+        else{
+            fillAll = true;
+            Event event = new Event(ueid,eventName,eventDate,eventAddress,eventDescription,eventTime,eventThumbnail,"");
+            db.child("events").child(ueid).setValue(event);
+        }
 //        String name, String date, String address, String description, String time, String thumbnail
     }
 
     private void saveImageToDB(){
         String eventName = edtName.getText().toString().trim();
         eventName = eventName.replace(" ","");
-        final StorageReference imageReference = storageRef.child("images/"+ueid);
-        // Get the data from an ImageView as bytes
-        ivPreview.setDrawingCacheEnabled(true);
-        ivPreview.buildDrawingCache();
-        Bitmap bitmap = ((BitmapDrawable) ivPreview.getDrawable()).getBitmap();
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-        byte[] data = baos.toByteArray();
+        if(this.fillAll == true && this.choseImage == false){
+            finish();
+        }
+        if (this.choseImage == false && this.fillAll == false){
+            return;
+        }
+        if(this.choseImage == true && this.fillAll == false){
+            return;
+        }
+        else if(this.choseImage == true && this.fillAll == true){
+            final StorageReference imageReference = storageRef.child("images/"+ueid);
+            // Get the data from an ImageView as bytes
+            ivPreview.setDrawingCacheEnabled(true);
+            ivPreview.buildDrawingCache();
+            Bitmap bitmap = ((BitmapDrawable) ivPreview.getDrawable()).getBitmap();
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+            byte[] data = baos.toByteArray();
 
-        UploadTask uploadTask = imageReference.putBytes(data);
-        uploadTask.addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception exception) {
-                // Handle unsuccessful uploads
-            }
-        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                // taskSnapshot.getMetadata() contains file metadata such as size, content-type, etc.
-                // ...
-                StorageMetadata metadata = taskSnapshot.getMetadata();
-                StorageReference imgReference = metadata.getReference();
-                imgReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                    @Override
-                    public void onSuccess(Uri uri) {
-                        // Got the download URL for 'users/me/profile.png'
-                        Log.d("Image uid",uri.toString());
-                        db.child("events").child(ueid).child("imageUri").setValue(uri.toString());
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception exception) {
-                        // Handle any errors
-                    }
-                });
-            }
-        });
+            UploadTask uploadTask = imageReference.putBytes(data);
+            uploadTask.addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception exception) {
+                    // Handle unsuccessful uploads
+                }
+            }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    // taskSnapshot.getMetadata() contains file metadata such as size, content-type, etc.
+                    // ...
+                    StorageMetadata metadata = taskSnapshot.getMetadata();
+                    StorageReference imgReference = metadata.getReference();
+                    imgReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+                            // Got the download URL for 'users/me/profile.png'
+                            Log.d("Image uid",uri.toString());
+                            db.child("events").child(ueid).child("imageUri").setValue(uri.toString());
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception exception) {
+                            // Handle any errors
+                        }
+                    });
+                }
+            });
+            finish();
+        }
+
 
     }
 
@@ -223,7 +257,6 @@ public class AddEventActivity extends AppCompatActivity implements View.OnClickL
         if (id == R.id.btnAddEvent){
             addEventToDB();
             saveImageToDB();
-            finish();
         }
     }
 }
