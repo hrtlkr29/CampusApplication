@@ -1,16 +1,14 @@
 package com.example.pc.campusapplication;
 
 import android.os.Bundle;
-import android.os.PersistableBundle;
-import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageButton;
 
-public class SportActivity extends AppCompatActivity implements View.OnClickListener,ViewPager.OnPageChangeListener {
+public class MarathonActivity extends AppCompatActivity implements View.OnClickListener,ViewPager.OnPageChangeListener {
     ViewPager viewPager;
-    SportPagerAdapter SPPagerAdapter;
+    MarathonPagerAdapter SPPagerAdapter;
     ImageButton btnSchedule, btnGrade, btnAttendance, btnCalc;
 
     @Override
@@ -26,7 +24,7 @@ public class SportActivity extends AppCompatActivity implements View.OnClickList
         btnCalc.setOnClickListener(this);
 
         viewPager = (ViewPager) findViewById(R.id.viewPager);
-        SPPagerAdapter = new SportPagerAdapter(getSupportFragmentManager());
+        SPPagerAdapter = new MarathonPagerAdapter(getSupportFragmentManager());
         viewPager.setAdapter(SPPagerAdapter);
 
         viewPager.addOnPageChangeListener(this);
@@ -75,3 +73,4 @@ public class SportActivity extends AppCompatActivity implements View.OnClickList
 
     }
 }
+

@@ -36,6 +36,14 @@
         <activity android:name=".AddEventActivity"></activity>
         <activity android:name=".EventDetailActivity"></activity>
         <activity android:name=".EventParticipantActivity"></activity>
+        <activity android:name=".MarathonActivity"></activity>
+        <activity android:name=".RobotActivity"></activity>
+        <activity android:name=".MarathonAddEventActivity"></activity>
+        <activity android:name=".MarathonEventParticipantActivity"></activity>
+        <activity android:name=".MarathonEventDetailActivity"></activity>
+        <activity android:name=".RobotEventParticipantActivity"></activity>
+        <activity android:name=".RobotEventDetailActivity"></activity>
+        <activity android:name=".RobotAddEventActivity"></activity>
         <service android:name=".InstanceIdService">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />

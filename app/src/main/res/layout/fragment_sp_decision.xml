@@ -3,29 +3,23 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/colorTint">
+
     <TextView
-        android:id="@+id/rTitle"
-        android:text="Title"
-        android:textColor="#000"
-        android:textSize="22sp"
-        android:textStyle="bold"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-    <ImageView
-        android:id="@+id/rImage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:scaleType="centerCrop"
-        android:adjustViewBounds="true"/>
-    <TextView
-        android:id="@+id/rdescription"
-        android:text="Description of the sport"
-        android:textSize="20sp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:text="You want to join?"
+        android:textSize="30sp"
+        android:padding="5dp"
+        android:textColor="@color/black"/>
     <Button
+        android:id="@+id/btnJoin"
+        android:clickable="false"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="JOIN"/>
+        android:text="JOIN"
+        android:layout_gravity="center_vertical"/>
+
+
 </LinearLayout>

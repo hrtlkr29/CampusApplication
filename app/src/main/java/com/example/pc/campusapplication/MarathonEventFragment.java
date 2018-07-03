@@ -22,48 +22,49 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class RobotEventFragment extends Fragment implements AdapterView.OnItemClickListener {
-    ListView list_sp_event;
-    ArrayList<Event> events;
-    EventAdapter adapter;
-    Button btnAddEvent;
-    ProgressDialog progressDialog;
-    DatabaseReference db;
-    DatabaseReference eventRef;
-    SharedEventModel model;
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
+public class MarathonEventFragment extends Fragment implements AdapterView.OnItemClickListener {
+        ListView list_sp_event;
+        ArrayList<Event> events;
+        EventAdapter adapter;
+        Button btnAddEvent;
+        ProgressDialog progressDialog;
+        DatabaseReference db;
+        DatabaseReference eventRef;
+        SharedEventModel model;
+        EventListCallback eventListCallback;
+@Override
+public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         model = ViewModelProviders.of(getActivity()).get(SharedEventModel.class);
         progressDialog = new ProgressDialog(this.getContext());
         progressDialog.setMessage("Loading...");
         progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         progressDialog.setIndeterminate(true);
-    }
+        }
 
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+@Nullable
+@Override
+public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_sp_task,null);
         btnAddEvent = rootView.findViewById(R.id.btnAddEvent);
         db = FirebaseDatabase.getInstance().getReference();
-        list_sp_event = rootView.findViewById(R.id.list_sp_event);
+    list_sp_event = rootView.findViewById(R.id.list_sp_event);
         ButtonHandler handler = new ButtonHandler();
         btnAddEvent.setOnClickListener(handler);
         loadEvents();
-        list_sp_event.setOnItemClickListener(this);
+    list_sp_event.setOnItemClickListener(this);
         return rootView;
-    }
+        }
 
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+@Override
+public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-    }
+        }
 
-    @Override
-    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+@Override
+public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
         Event event = this.events.get(i);
-        Intent intent = new Intent(this.getActivity(),RobotEventDetailActivity.class);
+        Intent intent = new Intent(this.getActivity(),MarathonEventDetailActivity.class);
         intent.putExtra("eventName",event.getName());
         intent.putExtra("eventTime",event.getTime());
         intent.putExtra("eventPlace",event.getAddress());
@@ -72,27 +73,28 @@ public class RobotEventFragment extends Fragment implements AdapterView.OnItemCl
         intent.putExtra("eventImageURL",event.getImageUri());
         intent.putExtra("eventID",event.getId());
         startActivity(intent);
-    }
+//        eventListCallback.onListEventClicked(event);
+        }
 
-    class ButtonHandler implements View.OnClickListener{
-        @Override
-        public void onClick(View view) {
-            if(view.getId() == R.id.btnAddEvent){
-                goToAddEvent();
-            }
+class ButtonHandler implements View.OnClickListener{
+    @Override
+    public void onClick(View view) {
+        if(view.getId() == R.id.btnAddEvent){
+            goToAddEvent();
         }
     }
+}
 
 
     private void goToAddEvent(){
-        Intent intent = new Intent(this.getActivity(),RobotAddEventActivity.class);
+        Intent intent = new Intent(this.getActivity(),MarathonAddEventActivity.class);
         startActivity(intent);
     }
 
     private void loadEvents(){
         progressDialog.show();
         events = new ArrayList<>();
-        eventRef = db.child("sport").child("robot").child("event");
+        eventRef = db.child("sport").child("Marathon").child("event");
         ValueEventListener listener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
