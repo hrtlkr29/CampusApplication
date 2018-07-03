@@ -13,6 +13,11 @@ public class User {
     public User() {
 
     }
+    public User(String email) {
+        this.email = email;
+
+    }
+
 
     public User(String uid, String email, String firstName, String lastName, String token) {
         this.setUid(uid);

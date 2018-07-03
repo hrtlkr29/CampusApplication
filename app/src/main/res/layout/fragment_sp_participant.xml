@@ -2,10 +2,20 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Participant"
-        android:textSize="30sp"/>
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/colorTint">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="List of member: "
+            android:textSize="25sp"
+            android:textColor="@color/black"
+            android:padding="7dp"/>
+        <ListView
+            android:id="@+id/lstSport_User"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </ListView>
 </LinearLayout>

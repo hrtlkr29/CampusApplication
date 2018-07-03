@@ -42,4 +42,22 @@ public class SportModel {
         setDescription("");
         setImage("");
     }
+//private int imageView;
+//
+//    public SportModel(int imageView) {
+//        this.setImageView(imageView);
+//    }
+//
+//    public SportModel() {
+//        this.setImageView(0);
+//    }
+//
+//
+//    public int getImageView() {
+//        return imageView;
+//    }
+//
+//    public void setImageView(int imageView) {
+//        this.imageView = imageView;
+//    }
 }
