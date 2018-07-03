@@ -23,14 +23,14 @@
             android:layout_width="wrap_content"
             android:layout_weight="1"
             android:layout_height="50dp"
-            android:background="@drawable/ico_attendance_black"/>
+            android:background="@drawable/ico_sport_attendance_black"/>
         <ImageButton
             android:id="@+id/btnCalc"
             android:layout_margin="10dp"
             android:layout_width="wrap_content"
             android:layout_weight="1"
             android:layout_height="50dp"
-            android:background="@drawable/ico_calc_black"/>
+            android:background="@drawable/ico_sport_event_black"/>
     </LinearLayout>
 
     <View android:layout_width="match_parent"

@@ -85,9 +85,7 @@ public class MarathonDecisionFragment extends Fragment implements  View.OnClickL
         participantsRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-//                participantCount = 0;
                 for(DataSnapshot child : dataSnapshot.getChildren()){
-//                    participantCount++;
                     User user = child.getValue(User.class);
                     boolean isJoined = user.getUid().equals(uid);
                     if(isJoined == true){
