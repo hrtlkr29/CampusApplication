@@ -51,20 +51,18 @@ public class MarathonActivity extends AppCompatActivity implements View.OnClickL
 
     @Override
     public void onPageSelected(int position) {
-        if(position == 0){
+        if (position == 0) {
             btnGrade.setBackground(getDrawable(R.drawable.ico_grade_red));
-            btnAttendance.setBackground(getDrawable(R.drawable.ico_attendance_black));
-            btnCalc.setBackground(getDrawable(R.drawable.ico_calc_black));
-        }
-        else if(position == 1){
+            btnAttendance.setBackground(getDrawable(R.drawable.ico_sport_attendance_black));
+            btnCalc.setBackground(getDrawable(R.drawable.ico_sport_event_black));
+        } else if (position == 1) {
             btnGrade.setBackground(getDrawable(R.drawable.ico_grade_black));
-            btnAttendance.setBackground(getDrawable(R.drawable.ico_attendance_red));
-            btnCalc.setBackground(getDrawable(R.drawable.ico_calc_black));
-        }
-        else if(position == 2){
+            btnAttendance.setBackground(getDrawable(R.drawable.ico_sport_attendance_red));
+            btnCalc.setBackground(getDrawable(R.drawable.ico_sport_event_black));
+        } else if (position == 2) {
             btnGrade.setBackground(getDrawable(R.drawable.ico_grade_black));
-            btnAttendance.setBackground(getDrawable(R.drawable.ico_attendance_black));
-            btnCalc.setBackground(getDrawable(R.drawable.ico_calc_red));
+            btnAttendance.setBackground(getDrawable(R.drawable.ico_sport_attendance_black));
+            btnCalc.setBackground(getDrawable(R.drawable.ico_sport_event_red));
         }
     }
 

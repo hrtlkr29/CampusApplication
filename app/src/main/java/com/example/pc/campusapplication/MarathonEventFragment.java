@@ -36,10 +36,10 @@ public class MarathonEventFragment extends Fragment implements AdapterView.OnIte
 public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         model = ViewModelProviders.of(getActivity()).get(SharedEventModel.class);
-        progressDialog = new ProgressDialog(this.getContext());
-        progressDialog.setMessage("Loading...");
-        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        progressDialog.setIndeterminate(true);
+//        progressDialog = new ProgressDialog(this.getContext());
+//        progressDialog.setMessage("Loading...");
+//        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+//        progressDialog.setIndeterminate(true);
         }
 
 @Nullable
@@ -48,11 +48,11 @@ public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup c
         View rootView = inflater.inflate(R.layout.fragment_sp_task,null);
         btnAddEvent = rootView.findViewById(R.id.btnAddEvent);
         db = FirebaseDatabase.getInstance().getReference();
-    list_sp_event = rootView.findViewById(R.id.list_sp_event);
+        list_sp_event = rootView.findViewById(R.id.list_sp_event);
         ButtonHandler handler = new ButtonHandler();
         btnAddEvent.setOnClickListener(handler);
+        list_sp_event.setOnItemClickListener(this);
         loadEvents();
-    list_sp_event.setOnItemClickListener(this);
         return rootView;
         }
 
@@ -92,7 +92,7 @@ class ButtonHandler implements View.OnClickListener{
     }
 
     private void loadEvents(){
-        progressDialog.show();
+//        progressDialog.show();
         events = new ArrayList<>();
         eventRef = db.child("sport").child("Marathon").child("event");
         ValueEventListener listener = new ValueEventListener() {
@@ -105,7 +105,7 @@ class ButtonHandler implements View.OnClickListener{
                 }
                 adapter = new EventAdapter(getContext(), R.layout.event_row,events);
                 list_sp_event.setAdapter(adapter);
-                progressDialog.hide();
+//                progressDialog.hide();
             }
 
             @Override

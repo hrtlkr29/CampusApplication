@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -26,6 +27,9 @@ public class RobotParticipantFragment extends Fragment {
     ArrayList<User> users;
     String name;
     SportParticipantAdapter adapter;
+    String uid;
+    FirebaseAuth auth;
+
 
     @Nullable
     @Override

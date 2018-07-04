@@ -51,16 +51,16 @@ public class RobotActivity extends AppCompatActivity implements View.OnClickList
     public void onPageSelected(int position) {
         if (position == 0) {
             btnGrade.setBackground(getDrawable(R.drawable.ico_grade_red));
-            btnAttendance.setBackground(getDrawable(R.drawable.ico_attendance_black));
-            btnCalc.setBackground(getDrawable(R.drawable.ico_calc_black));
+            btnAttendance.setBackground(getDrawable(R.drawable.ico_sport_attendance_black));
+            btnCalc.setBackground(getDrawable(R.drawable.ico_sport_event_black));
         } else if (position == 1) {
             btnGrade.setBackground(getDrawable(R.drawable.ico_grade_black));
-            btnAttendance.setBackground(getDrawable(R.drawable.ico_attendance_red));
-            btnCalc.setBackground(getDrawable(R.drawable.ico_calc_black));
+            btnAttendance.setBackground(getDrawable(R.drawable.ico_sport_attendance_red));
+            btnCalc.setBackground(getDrawable(R.drawable.ico_sport_event_black));
         } else if (position == 2) {
             btnGrade.setBackground(getDrawable(R.drawable.ico_grade_black));
-            btnAttendance.setBackground(getDrawable(R.drawable.ico_attendance_black));
-            btnCalc.setBackground(getDrawable(R.drawable.ico_calc_red));
+            btnAttendance.setBackground(getDrawable(R.drawable.ico_sport_attendance_black));
+            btnCalc.setBackground(getDrawable(R.drawable.ico_sport_event_red));
         }
     }
 
