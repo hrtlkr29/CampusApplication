@@ -2,11 +2,78 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <TextView
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Computer Science work"
-        android:textSize="30sp"/>
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+        <RelativeLayout
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <ImageButton
+                android:layout_centerHorizontal="true"
+                android:id="@+id/btnSchedule"
+                android:layout_width="70dp"
+                android:layout_height="30dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/ico_class_schedule_red" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <ImageButton
+                android:layout_centerHorizontal="true"
+                android:id="@+id/btnCalc"
+                android:layout_width="70dp"
+                android:layout_height="30dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/ico_calc_black" />
+        </RelativeLayout>
+        <!--<ImageButton-->
+        <!--android:id="@+id/btnGrade"-->
+        <!--android:layout_margin="10dp"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_weight="1"-->
+        <!--android:layout_height="50dp"-->
+        <!--android:background="@drawable/ico_grade_black"/>-->
+        <!--<ImageButton-->
+        <!--android:id="@+id/btnAttendance"-->
+        <!--android:layout_margin="10dp"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_weight="1"-->
+        <!--android:layout_height="50dp"-->
+        <!--android:background="@drawable/ico_attendance_black"/>-->
+
+    </LinearLayout>
+
+    <View android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/colorGrey">
+    </View>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </android.support.v4.view.ViewPager>
 </LinearLayout>

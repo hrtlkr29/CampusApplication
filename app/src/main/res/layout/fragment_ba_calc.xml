@@ -1,11 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <TextView
+    android:layout_height="match_parent"
+    android:background="@color/colorTint">
+
+<TextView
+    android:id="@+id/txtChooseIntake"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Choose your intake"
+    android:textColor="@color/black"
+    android:textSize="20sp"
+    android:layout_margin="20dp"/>
+
+    <Spinner
+        android:id="@+id/spnIntake"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Calc work"
-        android:textSize="30sp"/>
-</LinearLayout>
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/txtChooseIntake"
+        android:layout_marginTop="67dp"></Spinner>
+
+    <EditText
+        android:id="@+id/txtChooseCredit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Enter your credits"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:layout_margin="20dp"
+        android:layout_below="@id/spnIntake"/>
+
+    <Button
+        android:id="@+id/btnCalculate"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/width"
+        android:layout_margin="20dp"
+        android:background="@color/dark_tint"
+        android:text="Calculate tuition fee!"
+        android:textAllCaps="false"
+        android:layout_below="@+id/txtChooseCredit"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size" />
+
+    <TextView
+        android:id="@+id/txtFee"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignStart="@+id/txtChooseIntake"
+        android:layout_marginBottom="259dp"
+        android:text="Your tuition fee for this sememter: "
+        android:textColor="@color/black"
+        android:textSize="20sp" />
+</RelativeLayout>

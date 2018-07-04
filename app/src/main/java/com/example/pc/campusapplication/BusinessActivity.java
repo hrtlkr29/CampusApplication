@@ -19,13 +19,13 @@ public class BusinessActivity extends AppCompatActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_business_administration);
         btnSchedule = findViewById(R.id.btnSchedule);
-        btnGrade = findViewById(R.id.btnGrade);
-        btnAttendance = findViewById(R.id.btnAttendance);
+//        btnGrade = findViewById(R.id.btnGrade);
+//        btnAttendance = findViewById(R.id.btnAttendance);
         btnCalc = findViewById(R.id.btnCalc);
 
         btnSchedule.setOnClickListener(this);
-        btnGrade.setOnClickListener(this);
-        btnAttendance.setOnClickListener(this);
+//        btnGrade.setOnClickListener(this);
+//        btnAttendance.setOnClickListener(this);
         btnCalc.setOnClickListener(this);
 
         viewPager = (ViewPager) findViewById(R.id.viewPager);
@@ -61,26 +61,26 @@ public class BusinessActivity extends AppCompatActivity implements View.OnClickL
     public void onPageSelected(int position) {
         if(position == 0){
             btnSchedule.setBackground(getDrawable(R.drawable.ico_class_schedule_red));
-            btnGrade.setBackground(getDrawable(R.drawable.ico_grade_black));
-            btnAttendance.setBackground(getDrawable(R.drawable.ico_attendance_black));
+//            btnGrade.setBackground(getDrawable(R.drawable.ico_grade_black));
+//            btnAttendance.setBackground(getDrawable(R.drawable.ico_attendance_black));
             btnCalc.setBackground(getDrawable(R.drawable.ico_calc_black));
         }
+//        else if(position == 1){
+//            btnSchedule.setBackground(getDrawable(R.drawable.ico_class_schedule_black));
+//            btnGrade.setBackground(getDrawable(R.drawable.ico_grade_red));
+//            btnAttendance.setBackground(getDrawable(R.drawable.ico_attendance_black));
+//            btnCalc.setBackground(getDrawable(R.drawable.ico_calc_black));
+//        }
+//        else if(position == 2){
+//            btnSchedule.setBackground(getDrawable(R.drawable.ico_class_schedule_black));
+//            btnGrade.setBackground(getDrawable(R.drawable.ico_grade_black));
+//            btnAttendance.setBackground(getDrawable(R.drawable.ico_attendance_red));
+//            btnCalc.setBackground(getDrawable(R.drawable.ico_calc_black));
+//        }
         else if(position == 1){
             btnSchedule.setBackground(getDrawable(R.drawable.ico_class_schedule_black));
-            btnGrade.setBackground(getDrawable(R.drawable.ico_grade_red));
-            btnAttendance.setBackground(getDrawable(R.drawable.ico_attendance_black));
-            btnCalc.setBackground(getDrawable(R.drawable.ico_calc_black));
-        }
-        else if(position == 2){
-            btnSchedule.setBackground(getDrawable(R.drawable.ico_class_schedule_black));
-            btnGrade.setBackground(getDrawable(R.drawable.ico_grade_black));
-            btnAttendance.setBackground(getDrawable(R.drawable.ico_attendance_red));
-            btnCalc.setBackground(getDrawable(R.drawable.ico_calc_black));
-        }
-        else if(position == 3){
-            btnSchedule.setBackground(getDrawable(R.drawable.ico_class_schedule_black));
-            btnGrade.setBackground(getDrawable(R.drawable.ico_grade_black));
-            btnAttendance.setBackground(getDrawable(R.drawable.ico_attendance_black));
+//            btnGrade.setBackground(getDrawable(R.drawable.ico_grade_black));
+//            btnAttendance.setBackground(getDrawable(R.drawable.ico_attendance_black));
             btnCalc.setBackground(getDrawable(R.drawable.ico_calc_red));
         }
     }

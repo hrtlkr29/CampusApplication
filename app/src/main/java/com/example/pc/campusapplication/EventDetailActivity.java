@@ -9,7 +9,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -57,6 +56,7 @@ public class EventDetailActivity extends AppCompatActivity implements View.OnCli
         btnMessage.setOnClickListener(this);
         btnJoinEvent.setOnClickListener(this);
         txtParticipants.setOnClickListener(this);
+        txtPlace.setOnClickListener(this);
     }
 
     @Override
@@ -118,11 +118,20 @@ public class EventDetailActivity extends AppCompatActivity implements View.OnCli
         if (id == R.id.tvEventDetailParticipants){
             goToParticipants();
         }
+        if (id == R.id.tvEventDetailPlace){
+            goToMap();
+        }
     }
 
     private void goToMessages() {
         Intent intent = new Intent(EventDetailActivity.this, MessageActivity.class);
         intent.putExtra("eventID", this.eventId);
+        startActivity(intent);
+    }
+
+    private void goToMap(){
+        Intent intent = new Intent(EventDetailActivity.this,MapActivity.class);
+        intent.putExtra("eventAddress",this.address);
         startActivity(intent);
     }
 

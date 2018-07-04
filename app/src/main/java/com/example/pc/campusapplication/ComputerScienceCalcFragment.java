@@ -13,9 +13,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
-public class BusinessCalcFragment extends Fragment implements AdapterView.OnItemSelectedListener, View.OnClickListener {
+public class ComputerScienceCalcFragment extends Fragment implements AdapterView.OnItemSelectedListener, View.OnClickListener {
 
     Spinner spnIntake;
     EditText txtCredit;
@@ -51,19 +50,19 @@ public class BusinessCalcFragment extends Fragment implements AdapterView.OnItem
             baseFee = 2.0;
         }
         else if(i == 1){
-            baseFee = 2.2;
+            baseFee = 2.1;
         }
         else if(i == 2){
-            baseFee = 2.4;
+            baseFee = 2.2;
         }
         else if(i == 3){
-            baseFee = 2.6;
+            baseFee = 2.3;
         }
         else if(i == 4){
-            baseFee = 2.8;
+            baseFee = 2.4;
         }
         else if(i == 5){
-            baseFee = 3.0;
+            baseFee = 2.5;
         }
     }
 
