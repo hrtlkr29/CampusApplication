@@ -31,9 +31,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity android:name=".SignUpActivity"></activity>
         <activity android:name=".ComputerScienceActivity"></activity>
+        <activity android:name=".ChangePasswordActivity"></activity>
         <activity android:name=".BusinessActivity"></activity>
         <activity android:name=".MessageActivity"></activity>
         <activity android:name=".ResultActivity"></activity>
@@ -49,6 +49,7 @@
         <activity android:name=".RobotEventDetailActivity"></activity>
         <activity android:name=".RobotAddEventActivity"></activity>
         <activity android:name=".MapActivity"></activity>
+        <activity android:name=".ResetPasswordActivity"></activity>
         <service android:name=".InstanceIdService">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />

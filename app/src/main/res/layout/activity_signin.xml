@@ -69,6 +69,18 @@
             android:layout_alignEnd="@+id/txtPass"
             android:background="@color/dark_tint"/>
 
+        <Button
+            android:textColor="@color/light_grey"
+            android:id="@+id/btn_forgot"
+            android:textAllCaps="false"
+            android:background="@android:color/transparent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/btnLogin"
+            android:text="@string/forgot_password"
+            android:layout_centerHorizontal="true"
+            android:textSize="@dimen/text_size"
+            android:layout_marginTop="@dimen/margin_top_normal"/>
 
 
         <Button
@@ -86,46 +98,6 @@
             android:textColor="@color/white"
             android:layout_marginBottom="@dimen/margin_top"/>
 
-
-        <!--<TextView-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:text="Sign In"-->
-        <!--android:gravity="center"-->
-        <!--android:textSize="36sp"/>-->
-
-        <!--<EditText-->
-        <!--android:layout_marginTop="20dp"-->
-        <!--android:id="@+id/txtEmail"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:hint="Email"-->
-        <!--android:textSize="24sp" />-->
-
-        <!--<EditText-->
-        <!--android:layout_marginTop="20dp"-->
-        <!--android:id="@+id/txtPass"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:hint="Password"-->
-        <!--android:textSize="24sp" />-->
-
-        <!--<Button-->
-        <!--android:layout_marginTop="20dp"-->
-        <!--android:layout_gravity="center"-->
-        <!--android:gravity="center"-->
-        <!--android:id="@+id/btnLogin"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:text="Login" />-->
-
-        <!--<Button-->
-        <!--android:layout_gravity="center"-->
-        <!--android:gravity="center"-->
-        <!--android:id="@+id/btnRegister"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:text="Register" />-->
 
 
     </RelativeLayout>

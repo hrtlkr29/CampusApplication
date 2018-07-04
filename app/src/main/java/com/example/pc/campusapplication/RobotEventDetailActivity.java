@@ -96,7 +96,7 @@ public class RobotEventDetailActivity extends AppCompatActivity implements View.
                 .fitCenter()
                 .centerCrop()
                 .into(thumbnail);
-
+    txtPlace.setOnClickListener(this);
     }
 
     @Override
@@ -117,6 +117,9 @@ public class RobotEventDetailActivity extends AppCompatActivity implements View.
         if (id == R.id.tvEventDetailParticipants){
             goToParticipants();
         }
+        if (id == R.id.tvEventDetailPlace){
+            goToMap();
+        }
     }
 
     private void goToMessages() {
@@ -128,6 +131,12 @@ public class RobotEventDetailActivity extends AppCompatActivity implements View.
     private void goToParticipants(){
         Intent intent = new Intent(RobotEventDetailActivity.this, RobotEventParticipantActivity.class);
         intent.putExtra("eventID", this.eventId);
+        startActivity(intent);
+    }
+
+    private void goToMap(){
+        Intent intent = new Intent(RobotEventDetailActivity.this,MapActivity.class);
+        intent.putExtra("eventAddress",this.address);
         startActivity(intent);
     }
 

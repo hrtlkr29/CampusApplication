@@ -19,7 +19,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class SignInActivity extends AppCompatActivity implements View.OnClickListener {
     EditText txtEmail, txtPass;
-    Button btnSignup, btnSignin;
+    Button btnSignup, btnSignin, btnForgot;
     FirebaseAuth auth;
     ProgressDialog progressDialog;
 
@@ -33,8 +33,10 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         txtPass = findViewById(R.id.txtPass);
         btnSignin = findViewById(R.id.btnLogin);
         btnSignup = findViewById(R.id.btnRegister);
+        btnForgot = findViewById(R.id.btn_forgot);
         btnSignin.setOnClickListener(this);
         btnSignup.setOnClickListener(this);
+        btnForgot.setOnClickListener(this);
 
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Loading...");
@@ -61,6 +63,9 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         }
         else if(id == R.id.btnRegister){
             goToRegister();
+        }
+        else if(id == R.id.btn_forgot){
+            goToForgot();
         }
     }
 
@@ -93,6 +98,11 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
 
     private void goToMainScreen(){
         Intent intent = new Intent(this,MainActivity.class);
+        startActivity(intent);
+    }
+
+    private void goToForgot(){
+        Intent intent = new Intent(this,ResetPasswordActivity.class);
         startActivity(intent);
     }
 

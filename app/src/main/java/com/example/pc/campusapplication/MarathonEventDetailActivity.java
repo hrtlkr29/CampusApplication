@@ -96,7 +96,7 @@ public class MarathonEventDetailActivity extends AppCompatActivity implements Vi
                 .fitCenter()
                 .centerCrop()
                 .into(thumbnail);
-
+    txtPlace.setOnClickListener(this);
     }
 
     @Override
@@ -117,11 +117,20 @@ public class MarathonEventDetailActivity extends AppCompatActivity implements Vi
         if (id == R.id.tvEventDetailParticipants){
             goToParticipants();
         }
+        if( id == R.id.tvEventDetailPlace){
+            goToMap();
+        }
     }
 
     private void goToMessages() {
         Intent intent = new Intent(MarathonEventDetailActivity.this, MessageActivity.class);
         intent.putExtra("eventID", this.eventId);
+        startActivity(intent);
+    }
+
+    private void goToMap(){
+        Intent intent = new Intent(MarathonEventDetailActivity.this,MapActivity.class);
+        intent.putExtra("eventAddress",this.address);
         startActivity(intent);
     }
 
